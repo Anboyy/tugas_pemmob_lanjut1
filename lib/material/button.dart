@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tugas_pemmob_lanjut1/Pages/LoginPage.dart';
 import 'package:tugas_pemmob_lanjut1/Pages/dashboard.dart';
 import 'package:tugas_pemmob_lanjut1/material/textfield.dart';
 
@@ -21,7 +20,7 @@ class Button extends StatelessWidget {
             MaterialPageRoute(builder: (context) => Dashboard()),
           );
         } else {
-          print();
+          // print();
         }
       },
       child: Text(NamaButton),

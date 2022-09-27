@@ -6,13 +6,14 @@ class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => LoginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> {
   final String Username = 'null';
   final String Password = 'null';
-  final _loginKey = GlobalKey<LoginPageState>();
+
+  // final _loginKey = GlobalKey<LoginPageState>();
 
   @override
   Widget build(BuildContext context) {
