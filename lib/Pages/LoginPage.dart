@@ -14,7 +14,37 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: Text('Koperasi Undiksha'),
         centerTitle: true,
-        backgroundColor:,
+        backgroundColor: Color(0xFF1C2474),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Column(
+              children: [
+                Image.asset(
+                  'Assets/images/logo.png',
+                  scale: 5,
+                ),
+                Material(
+                  elevation: 10,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                  child: Container(
+                    width: double.infinity,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Color(0xFF1C2474)),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
