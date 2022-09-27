@@ -9,12 +9,18 @@ class DataNasabah extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        children: [
-          Text(Data),
-          Text(NamaNasabah),
-        ],
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10), color: Colors.amber),
+      child: Container(
+        width: 200,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(Data),
+            Text(NamaNasabah),
+          ],
+        ),
       ),
     );
   }

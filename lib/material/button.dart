@@ -11,10 +11,10 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        if (InputLogin('Username', true).NamaController.toString() == '123' &&
-                InputLogin('Password', false).NamaController.toString() == '123'
-            // NamaButton != null
-            ) {
+        if (
+            // InputLogin('Username', true).NamaController.toString() == '123' &&
+            //         InputLogin('Password', false).NamaController.toString() == '123'
+            NamaButton != null) {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => Dashboard()),

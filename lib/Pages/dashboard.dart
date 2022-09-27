@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_pemmob_lanjut1/personal/nasabah.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -10,6 +11,48 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Koperasi Undiksha'),
+        centerTitle: true,
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.logout))],
+      ),
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Container(
+            padding: EdgeInsets.fromLTRB(10, 10, 10, 5),
+            width: double.infinity,
+            // height: 100,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Color(0xFF1C2474)),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      child: Image.asset(
+                        'Assets/images/logo.png',
+                        scale: 10,
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        DataNasabah('Nasabah', 'I Kadek Yawan Divta Pramana'),
+                        SizedBox(height: 5),
+                        DataNasabah('Tabungan', '12.000.000'),
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
