@@ -48,9 +48,10 @@ class _DashboardState extends State<Dashboard> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
+                                padding: EdgeInsets.all(8),
                                 child: Image.asset(
                                   'Assets/images/logo.png',
-                                  scale: 10,
+                                  scale: 8,
                                 ),
                               ),
                               Container(
@@ -106,10 +107,11 @@ class _DashboardState extends State<Dashboard> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              TombolKategori(Icons.payment, 'Pembayaran'),
                               TombolKategori(
-                                  Icons.monetization_on_sharp, 'Peminjaman'),
-                              TombolKategori(Icons.payments_outlined, 'Mutasi')
+                                  Icons.payments_outlined, 'Pembayaran'),
+                              TombolKategori(
+                                  Icons.money_outlined, 'Peminjaman'),
+                              TombolKategori(Icons.comment_bank, 'Mutasi')
                             ],
                           )
                         ],
