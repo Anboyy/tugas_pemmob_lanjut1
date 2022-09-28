@@ -21,7 +21,7 @@ class _DashboardState extends State<Dashboard> {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
-            padding: EdgeInsets.all(10),
+            // padding: EdgeInsets.all(10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -42,6 +42,7 @@ class _DashboardState extends State<Dashboard> {
                     child: Column(
                       children: [
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
                               child: Image.asset(
@@ -49,14 +50,16 @@ class _DashboardState extends State<Dashboard> {
                                 scale: 10,
                               ),
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                DataNasabah(
-                                    'Nasabah', 'I Kadek Yawan Divta Pramana'),
-                                SizedBox(height: 5),
-                                DataNasabah('Tabungan', '12.000.000'),
-                              ],
+                            Container(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  DataNasabah(
+                                      'Nasabah', 'I Kadek Yawan Divta Pramana'),
+                                  SizedBox(height: 5),
+                                  DataNasabah('Tabungan', '12.000.000'),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -95,18 +98,53 @@ class _DashboardState extends State<Dashboard> {
                           ),
                           SizedBox(height: 10),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TombolKategori(Icons.payment, 'payment'),
-                              TombolKategori(
-                                  Icons.monetization_on_sharp, 'Transfer'),
-                              TombolKategori(
-                                  Icons.payments_outlined, 'Deposito')
-                            ],
-                          )
-                        ],
-                      )),
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TombolKategori(Icons.payment, 'payment'),
+                            TombolKategori(
+                                Icons.monetization_on_sharp, 'Transfer'),
+                            TombolKategori(Icons.payments_outlined, 'Deposito')
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
                 ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  color: Colors.blue,
+                  width: double.infinity,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          // mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Butuh Bantuan?',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              '0819-9361-6947',
+                              style: TextStyle(
+                                  fontSize: 24, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        child: Icon(Icons.call, size: 80),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),
