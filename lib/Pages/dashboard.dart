@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_pemmob_lanjut1/material/bottomappbar.dart';
+import 'package:tugas_pemmob_lanjut1/material/floatingActionButton.dart';
 import 'package:tugas_pemmob_lanjut1/material/tombolKategori.dart';
 import 'package:tugas_pemmob_lanjut1/personal/nasabah.dart';
 
@@ -21,7 +23,6 @@ class _DashboardState extends State<Dashboard> {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
-            // padding: EdgeInsets.all(10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -94,7 +95,7 @@ class _DashboardState extends State<Dashboard> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              TombolKategori(Icons.payment, 'payment'),
+                              TombolKategori(Icons.payment, 'Cek Saldo'),
                               TombolKategori(
                                   Icons.monetization_on_sharp, 'Transfer'),
                               TombolKategori(
@@ -105,11 +106,10 @@ class _DashboardState extends State<Dashboard> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              TombolKategori(Icons.payment, 'payment'),
+                              TombolKategori(Icons.payment, 'Pembayaran'),
                               TombolKategori(
-                                  Icons.monetization_on_sharp, 'Transfer'),
-                              TombolKategori(
-                                  Icons.payments_outlined, 'Deposito')
+                                  Icons.monetization_on_sharp, 'Peminjaman'),
+                              TombolKategori(Icons.payments_outlined, 'Mutasi')
                             ],
                           )
                         ],
@@ -121,6 +121,7 @@ class _DashboardState extends State<Dashboard> {
                   height: 20,
                 ),
                 Container(
+                  padding: EdgeInsets.all(10),
                   color: Colors.blue,
                   width: double.infinity,
                   child: Row(
@@ -131,23 +132,26 @@ class _DashboardState extends State<Dashboard> {
                         padding: EdgeInsets.all(10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          // mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
                               'Butuh Bantuan?',
                               style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
+                                  fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                             Text(
                               '0819-9361-6947',
                               style: TextStyle(
-                                  fontSize: 24, fontWeight: FontWeight.bold),
+                                  fontSize: 30, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
                       ),
                       Container(
-                        child: Icon(Icons.call, size: 80),
+                        child: Icon(
+                          Icons.call,
+                          size: 80,
+                          color: Colors.deepPurpleAccent,
+                        ),
                       ),
                     ],
                   ),
@@ -157,6 +161,9 @@ class _DashboardState extends State<Dashboard> {
           ),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FAButton(),
+      bottomNavigationBar: BottomAppBarAn(),
     );
   }
 }

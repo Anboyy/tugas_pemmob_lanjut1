@@ -11,13 +11,17 @@ class DataNasabah extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10), color: Colors.amber),
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.lightBlueAccent),
       child: Container(
         width: 200,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(Data),
+            Text(
+              Data,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             Text(NamaNasabah),
           ],
         ),
