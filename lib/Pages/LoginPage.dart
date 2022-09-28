@@ -72,11 +72,12 @@ class _LoginPageState extends State<LoginPage> {
                             child: Button('Login'),
                           ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TextButton(
                                   onPressed: () {},
                                   child: Text('Daftar Sekarang')),
-                              Spacer(),
+                              // Spacer(),
                               TextButton(
                                   onPressed: () {},
                                   child: Text('Lupa Password?'))

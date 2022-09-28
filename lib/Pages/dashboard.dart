@@ -20,73 +20,95 @@ class _DashboardState extends State<Dashboard> {
       ),
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.fromLTRB(10, 10, 10, 5),
-                width: double.infinity,
-                // height: 100,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Color(0xFF1C2474)),
-                ),
-                child: Column(
-                  children: [
-                    Row(
+          child: Container(
+            padding: EdgeInsets.all(10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Material(
+                  elevation: 10,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 5),
+                    width: double.infinity,
+                    // height: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Color(0xFF1C2474)),
+                    ),
+                    child: Column(
                       children: [
-                        Container(
-                          child: Image.asset(
-                            'Assets/images/logo.png',
-                            scale: 10,
-                          ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
                           children: [
-                            DataNasabah(
-                                'Nasabah', 'I Kadek Yawan Divta Pramana'),
-                            SizedBox(height: 5),
-                            DataNasabah('Tabungan', '12.000.000'),
+                            Container(
+                              child: Image.asset(
+                                'Assets/images/logo.png',
+                                scale: 10,
+                              ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                DataNasabah(
+                                    'Nasabah', 'I Kadek Yawan Divta Pramana'),
+                                SizedBox(height: 5),
+                                DataNasabah('Tabungan', '12.000.000'),
+                              ],
+                            ),
                           ],
                         ),
                       ],
                     ),
-                  ],
-                ),
-              ),
-              Container(
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: Color(0xFF1C2474),
-                    ),
                   ),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          TombolKategori(),
-                          Spacer(),
-                          TombolKategori(),
-                          Spacer(),
-                          TombolKategori()
-                        ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Material(
+                  elevation: 5,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                  child: Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Color(0xFF1C2474),
+                        ),
                       ),
-                      Row(
+                      child: Column(
                         children: [
-                          TombolKategori(),
-                          Spacer(),
-                          TombolKategori(),
-                          Spacer(),
-                          TombolKategori()
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TombolKategori(Icons.payment, 'payment'),
+                              TombolKategori(
+                                  Icons.monetization_on_sharp, 'Transfer'),
+                              TombolKategori(
+                                  Icons.payments_outlined, 'Deposito')
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TombolKategori(Icons.payment, 'payment'),
+                              TombolKategori(
+                                  Icons.monetization_on_sharp, 'Transfer'),
+                              TombolKategori(
+                                  Icons.payments_outlined, 'Deposito')
+                            ],
+                          )
                         ],
-                      )
-                    ],
-                  )),
-            ],
+                      )),
+                ),
+              ],
+            ),
           ),
         ),
       ),
