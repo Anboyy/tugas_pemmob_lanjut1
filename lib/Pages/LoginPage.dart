@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tugas_pemmob_lanjut1/material/button.dart';
+import 'package:tugas_pemmob_lanjut1/Pages/dashboard.dart';
 import 'package:tugas_pemmob_lanjut1/material/footer.dart';
-import 'package:tugas_pemmob_lanjut1/material/textfield.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -11,10 +10,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final String Username = 'null';
-  final String Password = 'null';
+  late String Username = '';
+  late String Password = '';
 
-  // final _loginKey = GlobalKey<LoginPageState>();
+  AlertDialog alert = AlertDialog(
+    title: Text("Login Failed"),
+    content: Text("Try to Check your Username or Password"),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -62,17 +64,66 @@ class _LoginPageState extends State<LoginPage> {
                                 Spacer(),
                               ],
                             ),
-                            InputLogin(Username, false),
+                            TextField(
+                              onChanged: (value) {
+                                Username = value;
+                              },
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.black)),
+                                  contentPadding: EdgeInsets.all(1)),
+                            ),
+                            // InputLogin(Username, false),
                             Row(
                               children: const [
                                 Text('Password'),
                                 Spacer(),
                               ],
                             ),
-                            InputLogin(Password, true),
+                            TextField(
+                              onChanged: (value) {
+                                Password = value;
+                              },
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.black)),
+                                  contentPadding: EdgeInsets.all(1)),
+                            ),
+                            // InputLogin(Password, true),
                             Container(
                               width: 300,
-                              child: Button('Login'),
+                              // child: Button('Login'),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  if (Username == '123' && Password == '123') {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Dashboard()),
+                                    );
+                                  } else {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return alert;
+                                      },
+                                    );
+                                    print(Username);
+                                    print(Password);
+                                  }
+                                },
+                                child: Text("Login"),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color(0xFF1C2474),
+                                  shape: StadiumBorder(),
+                                ),
+                              ),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
