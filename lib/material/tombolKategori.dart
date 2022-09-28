@@ -4,7 +4,6 @@ class TombolKategori extends StatelessWidget {
   // const TombolKategori({Key? key}) : super(key: key);
   var iconTombol;
   final String nama;
-
   TombolKategori(this.iconTombol, this.nama);
 
   @override
