@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_pemmob_lanjut1/material/tombolKategori.dart';
 import 'package:tugas_pemmob_lanjut1/personal/nasabah.dart';
 
 class Dashboard extends StatefulWidget {
@@ -19,37 +20,73 @@ class _DashboardState extends State<Dashboard> {
       ),
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Container(
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 5),
-            width: double.infinity,
-            // height: 100,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Color(0xFF1C2474)),
-            ),
-            child: Column(
-              children: [
-                Row(
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 5),
+                width: double.infinity,
+                // height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Color(0xFF1C2474)),
+                ),
+                child: Column(
                   children: [
-                    Container(
-                      child: Image.asset(
-                        'Assets/images/logo.png',
-                        scale: 10,
-                      ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       children: [
-                        DataNasabah('Nasabah', 'I Kadek Yawan Divta Pramana'),
-                        SizedBox(height: 5),
-                        DataNasabah('Tabungan', '12.000.000'),
+                        Container(
+                          child: Image.asset(
+                            'Assets/images/logo.png',
+                            scale: 10,
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            DataNasabah(
+                                'Nasabah', 'I Kadek Yawan Divta Pramana'),
+                            SizedBox(height: 5),
+                            DataNasabah('Tabungan', '12.000.000'),
+                          ],
+                        ),
                       ],
-                    )
+                    ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              Container(
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: Color(0xFF1C2474),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          TombolKategori(),
+                          Spacer(),
+                          TombolKategori(),
+                          Spacer(),
+                          TombolKategori()
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          TombolKategori(),
+                          Spacer(),
+                          TombolKategori(),
+                          Spacer(),
+                          TombolKategori()
+                        ],
+                      )
+                    ],
+                  )),
+            ],
           ),
         ),
       ),
