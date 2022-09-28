@@ -101,7 +101,9 @@ class _LoginPageState extends State<LoginPage> {
                               // child: Button('Login'),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  if (Username == '123' && Password == '123') {
+                                  if (Username ==
+                                          'I Kadek Yawan Divta Pramana' &&
+                                      Password == '2015051093') {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
