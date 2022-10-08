@@ -47,14 +47,15 @@ class _DashboardState extends State<Dashboard> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                padding: EdgeInsets.all(8),
+                              Flexible(
+                                flex: 1,
                                 child: Image.asset(
                                   'Assets/images/logo.png',
                                   scale: 8,
                                 ),
                               ),
-                              Container(
+                              Flexible(
+                                flex: 2,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -91,30 +92,17 @@ class _DashboardState extends State<Dashboard> {
                           color: Color(0xFF1C2474),
                         ),
                       ),
-                      child: Column(
+                      child: Wrap(
+                        spacing: 10,
+                        runSpacing: 10,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TombolKategori(Icons.payment, 'Cek Saldo'),
-                              TombolKategori(
-                                  Icons.monetization_on_sharp, 'Transfer'),
-                              TombolKategori(
-                                  Icons.payments_outlined, 'Deposito')
-                            ],
-                          ),
-                          //done
-                          SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TombolKategori(
-                                  Icons.payments_outlined, 'Pembayaran'),
-                              TombolKategori(
-                                  Icons.money_outlined, 'Peminjaman'),
-                              TombolKategori(Icons.comment_bank, 'Mutasi')
-                            ],
-                          )
+                          TombolKategori(Icons.payment, 'Cek Saldo'),
+                          TombolKategori(
+                              Icons.monetization_on_sharp, 'Transfer'),
+                          TombolKategori(Icons.payments_outlined, 'Deposito'),
+                          TombolKategori(Icons.payments_outlined, 'Pembayaran'),
+                          TombolKategori(Icons.money_outlined, 'Peminjaman'),
+                          TombolKategori(Icons.comment_bank, 'Mutasi')
                         ],
                       ),
                     ),

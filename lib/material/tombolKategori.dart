@@ -1,33 +1,42 @@
 import 'package:flutter/material.dart';
 
-class TombolKategori extends StatelessWidget {
+class TombolKategori extends StatefulWidget {
   // const TombolKategori({Key? key}) : super(key: key);
   var iconTombol;
   final String nama;
+
   TombolKategori(this.iconTombol, this.nama);
 
   @override
+  State<TombolKategori> createState() => _TombolKategoriState();
+}
+
+class _TombolKategoriState extends State<TombolKategori> {
+  @override
   Widget build(BuildContext context) {
+    final screen = MediaQuery.of(context).size.height;
     return Material(
       borderRadius: BorderRadius.circular(10),
       elevation: 10,
       child: Container(
-        width: 100,
-        height: 100,
+        width: screen * 0.17,
+        height: screen * 0.17,
         decoration: BoxDecoration(
             color: Colors.lightBlueAccent,
             borderRadius: BorderRadius.circular(10)),
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            print(widget.nama);
+          },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
-                iconTombol,
+                widget.iconTombol,
                 size: 40,
                 color: Colors.blue,
               ),
-              Text(nama)
+              Text(widget.nama)
             ],
           ),
         ),

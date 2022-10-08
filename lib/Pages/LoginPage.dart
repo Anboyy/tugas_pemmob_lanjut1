@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                                   if (Username ==
                                           'I Kadek Yawan Divta Pramana' &&
                                       Password == '2015051093') {
-                                    Navigator.push(
+                                    Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => Dashboard()),
@@ -134,6 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                                     onPressed: () {},
                                     child: Text('Daftar Sekarang')),
                                 // Spacer(),
+                                // Expanded(child: Container()),
                                 TextButton(
                                     onPressed: () {},
                                     child: Text('Lupa Password?'))
@@ -147,9 +148,22 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     height: 100,
                   ),
-                  footer(),
+                  // footer(),
                 ],
               ),
+            ),
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+          color: Colors.amber,
+          height: 20,
+          child: Text(
+            'Copyright@2022 by Yawdiv',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),

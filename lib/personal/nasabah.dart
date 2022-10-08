@@ -14,7 +14,7 @@ class DataNasabah extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: Colors.lightBlueAccent),
       child: Container(
-        width: 200,
+        width: double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

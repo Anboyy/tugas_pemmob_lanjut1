@@ -1,11 +1,28 @@
 import 'package:flutter/material.dart';
 
-class BottomAppBarAn extends StatelessWidget {
-  const BottomAppBarAn({Key? key}) : super(key: key);
+class BottomAppBarAn extends StatefulWidget {
+  @override
+  State<BottomAppBarAn> createState() => _BottomAppBarAnState();
+}
 
+class _BottomAppBarAnState extends State<BottomAppBarAn> {
+  // const BottomAppBarAn({Key? key}) : super(key: key);
+  var TombolActive = 0;
+
+  // List _screens =[Dashboard(),ProfilePage()];
+
+  void _updateIndex(int value) {
+    setState(() {
+      TombolActive = value;
+    });
+  }
+
+  // BottomAppBarAn(this.TombolActive);
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      onTap: _updateIndex,
+      currentIndex: TombolActive,
       backgroundColor: Colors.grey,
       type: BottomNavigationBarType.fixed,
       selectedItemColor: Colors.blue[700],
