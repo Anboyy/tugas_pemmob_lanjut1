@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:tugas_pemmob_lanjut1/provider/bottomnavbarListener.dart';
 
 class BottomAppBarAn extends StatefulWidget {
-  const BottomAppBarAn({super.key});
-
   @override
   State<BottomAppBarAn> createState() => _BottomAppBarAnState();
 }
@@ -18,11 +14,10 @@ class _BottomAppBarAnState extends State<BottomAppBarAn> {
   void _updateIndex(int value) {
     setState(() {
       TombolActive = value;
-      context.read<BottomBarListener>().IncIndex();
-      print(TombolActive);
     });
   }
 
+  // BottomAppBarAn(this.TombolActive);
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
