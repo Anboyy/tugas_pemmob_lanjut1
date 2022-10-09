@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tugas_pemmob_lanjut1/Pages/LoginPage.dart';
+import 'package:tugas_pemmob_lanjut1/material/bottomappbar.dart';
 import 'package:tugas_pemmob_lanjut1/provider/bottomnavbarListener.dart';
 
 void main() {
-  runApp(MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => BottomBarListener())],
-      child: const MyApp()));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => BottomBarListener()),
+    ChangeNotifierProvider(create: (_) => BottomAppBarAnState())
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

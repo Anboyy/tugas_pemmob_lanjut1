@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tugas_pemmob_lanjut1/material/bottomappbar.dart';
 
 class TombolKategori extends StatefulWidget {
   // const TombolKategori({Key? key}) : super(key: key);
@@ -26,7 +28,7 @@ class _TombolKategoriState extends State<TombolKategori> {
             borderRadius: BorderRadius.circular(10)),
         child: InkWell(
           onTap: () {
-            print(widget.nama);
+            print(context.read<BottomAppBarAn>());
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

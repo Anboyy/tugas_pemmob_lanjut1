@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tugas_pemmob_lanjut1/material/tombolKategori.dart';
 import 'package:tugas_pemmob_lanjut1/provider/bottomnavbarListener.dart';
 
 class BottomAppBarAn extends StatefulWidget {
-  const BottomAppBarAn({super.key});
+  BottomAppBarAn({super.key});
 
   @override
-  State<BottomAppBarAn> createState() => _BottomAppBarAnState();
+  State<BottomAppBarAn> createState() => BottomAppBarAnState();
 }
 
-class _BottomAppBarAnState extends State<BottomAppBarAn> {
+class BottomAppBarAnState extends State<BottomAppBarAn> with ChangeNotifier {
   // const BottomAppBarAn({Key? key}) : super(key: key);
-  var TombolActive = 0;
+  late var _TombolActive;
+  int get TombolActive => _TombolActive;
 
-  // List _screens =[Dashboard(),ProfilePage()];
+  set TombolActive(int value) {
+    _TombolActive = value;
+    notifyListeners();
+  }
 
-  void _updateIndex(int value) {
+  void updateIndex(int value) {
     setState(() {
-      TombolActive = value;
+      _TombolActive = value;
+      notifyListeners();
       context.read<BottomBarListener>().IncIndex();
       print(TombolActive);
     });
@@ -26,7 +32,7 @@ class _BottomAppBarAnState extends State<BottomAppBarAn> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      onTap: _updateIndex,
+      onTap: updateIndex,
       currentIndex: TombolActive,
       backgroundColor: Colors.grey,
       type: BottomNavigationBarType.fixed,
