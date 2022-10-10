@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tugas_pemmob_lanjut1/Pages/profile.dart';
 import 'package:tugas_pemmob_lanjut1/material/bottomappbar.dart';
 import 'package:tugas_pemmob_lanjut1/material/floatingActionButton.dart';
 import 'package:tugas_pemmob_lanjut1/material/tombolKategori.dart';
 import 'package:tugas_pemmob_lanjut1/personal/nasabah.dart';
+import '../provider/bottomnavbarListener.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -12,21 +14,14 @@ class Dashboard extends StatefulWidget {
   State<Dashboard> createState() => _DashboardState();
 }
 
-class _DashboardState extends State<Dashboard> {
-  late var TombolBotBarAktif = context.read<BottomAppBarAnState>();
+class _DashboardState extends State<Dashboard> with ChangeNotifier {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Koperasi Undiksha'),
         centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () {
-                print(TombolBotBarAktif.TombolActive);
-              },
-              icon: Icon(Icons.logout))
-        ],
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.logout))],
       ),
       body: SingleChildScrollView(
         child: SafeArea(

@@ -1,31 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tugas_pemmob_lanjut1/material/tombolKategori.dart';
+import 'package:tugas_pemmob_lanjut1/Pages/dashboard.dart';
+import 'package:tugas_pemmob_lanjut1/Pages/profile.dart';
 import 'package:tugas_pemmob_lanjut1/provider/bottomnavbarListener.dart';
 
 class BottomAppBarAn extends StatefulWidget {
-  BottomAppBarAn({super.key});
+  const BottomAppBarAn({super.key});
 
   @override
-  State<BottomAppBarAn> createState() => BottomAppBarAnState();
+  State<BottomAppBarAn> createState() => _BottomAppBarAnState();
 }
 
-class BottomAppBarAnState extends State<BottomAppBarAn> with ChangeNotifier {
+class _BottomAppBarAnState extends State<BottomAppBarAn> {
+  var TombolActive = 0;
   // const BottomAppBarAn({Key? key}) : super(key: key);
-  late var _TombolActive;
-  int get TombolActive => _TombolActive;
-
-  set TombolActive(int value) {
-    _TombolActive = value;
-    notifyListeners();
-  }
 
   void updateIndex(int value) {
     setState(() {
-      _TombolActive = value;
-      notifyListeners();
-      context.read<BottomBarListener>().IncIndex();
-      print(TombolActive);
+      TombolActive = value;
+      context.read<BottomBarListener>().botIndex(value);
+      print(context.read<BottomBarListener>().index);
     });
   }
 

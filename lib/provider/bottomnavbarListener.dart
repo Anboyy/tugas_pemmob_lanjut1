@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 
 class BottomBarListener with ChangeNotifier {
-  bool _index = true;
+  int _index = 0;
 
-  bool get index => _index;
+  int get index => _index;
 
-  void IncIndex() {
-    _index = !_index;
+  set getBotIndex(int value) {
+    _index = value;
+    notifyListeners();
+  }
+
+  void botIndex(int value) {
+    _index = value;
+    notifyListeners();
   }
 }

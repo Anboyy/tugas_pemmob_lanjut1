@@ -7,7 +7,6 @@ import 'package:tugas_pemmob_lanjut1/provider/bottomnavbarListener.dart';
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => BottomBarListener()),
-    ChangeNotifierProvider(create: (_) => BottomAppBarAnState())
   ], child: const MyApp()));
 }
 
