@@ -16,13 +16,14 @@ class TombolKategori extends StatefulWidget {
 class _TombolKategoriState extends State<TombolKategori> {
   @override
   Widget build(BuildContext context) {
-    final screen = MediaQuery.of(context).size.height;
+    final widthscreen = MediaQuery.of(context).size.width;
+    final heighscreen = MediaQuery.of(context).size.height;
     return Material(
       borderRadius: BorderRadius.circular(10),
       elevation: 10,
       child: Container(
-        width: screen * 0.17,
-        height: screen * 0.17,
+        width: heighscreen * 0.17,
+        height: heighscreen * 0.17,
         decoration: BoxDecoration(
             color: Colors.lightBlueAccent,
             borderRadius: BorderRadius.circular(10)),

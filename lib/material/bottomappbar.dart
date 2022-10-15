@@ -13,7 +13,6 @@ class BottomAppBarAn extends StatefulWidget {
 
 class _BottomAppBarAnState extends State<BottomAppBarAn> {
   var TombolActive = 0;
-  // const BottomAppBarAn({Key? key}) : super(key: key);
 
   void updateIndex(int value) {
     setState(() {

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:tugas_pemmob_lanjut1/Pages/profile.dart';
 import 'package:tugas_pemmob_lanjut1/material/bottomappbar.dart';
+import 'package:tugas_pemmob_lanjut1/material/data.dart';
 import 'package:tugas_pemmob_lanjut1/material/floatingActionButton.dart';
 import 'package:tugas_pemmob_lanjut1/material/tombolKategori.dart';
 import 'package:tugas_pemmob_lanjut1/personal/nasabah.dart';
-import '../provider/bottomnavbarListener.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);

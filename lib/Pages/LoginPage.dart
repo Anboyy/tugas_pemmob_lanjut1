@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_pemmob_lanjut1/Pages/dashboard.dart';
-import 'package:tugas_pemmob_lanjut1/material/footer.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -36,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 20),
                   Image.asset(
                     'Assets/images/logo.png',
-                    scale: 5,
+                    scale: 6,
                   ),
                   SizedBox(height: 10),
                   Container(
@@ -48,8 +47,6 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       child: Container(
                         padding: EdgeInsets.fromLTRB(10, 10, 10, 5),
-                        width: double.infinity,
-                        // height: 100,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
@@ -72,8 +69,8 @@ class _LoginPageState extends State<LoginPage> {
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
                                   focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.black)),
+                                    borderSide: BorderSide(color: Colors.black),
+                                  ),
                                   contentPadding: EdgeInsets.all(1)),
                             ),
                             // InputLogin(Username, false),
@@ -89,15 +86,16 @@ class _LoginPageState extends State<LoginPage> {
                               },
                               obscureText: true,
                               decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.black)),
-                                  contentPadding: EdgeInsets.all(1)),
+                                border: OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black),
+                                ),
+                                contentPadding: EdgeInsets.all(1),
+                              ),
                             ),
                             // InputLogin(Password, true),
                             Container(
-                              width: 300,
+                              width: MediaQuery.of(context).size.width * 0.2,
                               // child: Button('Login'),
                               child: ElevatedButton(
                                 onPressed: () {
@@ -116,8 +114,6 @@ class _LoginPageState extends State<LoginPage> {
                                         return alert;
                                       },
                                     );
-                                    print(Username);
-                                    print(Password);
                                   }
                                 },
                                 child: Text("Login"),
@@ -131,13 +127,13 @@ class _LoginPageState extends State<LoginPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 TextButton(
-                                    onPressed: () {},
-                                    child: Text('Daftar Sekarang')),
-                                // Spacer(),
-                                // Expanded(child: Container()),
+                                  onPressed: () {},
+                                  child: Text('Daftar Sekarang'),
+                                ),
                                 TextButton(
-                                    onPressed: () {},
-                                    child: Text('Lupa Password?'))
+                                  onPressed: () {},
+                                  child: Text('Lupa Password?'),
+                                )
                               ],
                             )
                           ],
