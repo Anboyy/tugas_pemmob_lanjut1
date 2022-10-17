@@ -22,13 +22,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      builder: (context, child) => ResponsiveWrapper.builder(
-        child,
-        breakpoints: [
-          ResponsiveBreakpoint.autoScale(480, name: MOBILE),
-          ResponsiveBreakpoint.resize(900, name: DESKTOP)
-        ],
-      ),
+      // builder: (context, child) => ResponsiveWrapper.builder(
+      //   child,
+      //   breakpoints: [
+      //     ResponsiveBreakpoint.autoScale(480, name: MOBILE),
+      //     ResponsiveBreakpoint.resize(900, name: DESKTOP)
+      //   ],
+      // ),
       debugShowCheckedModeBanner: false,
       title: 'Koperasi Undiksha',
       home: LoginPage(),
