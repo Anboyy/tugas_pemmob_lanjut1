@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_pemmob_lanjut1/Pages/belajardio.dart';
+import 'package:tugas_pemmob_lanjut1/Pages/grid2.dart';
 import 'package:tugas_pemmob_lanjut1/material/tombolKategori.dart';
 import 'package:tugas_pemmob_lanjut1/personal/nasabah.dart';
 
@@ -91,6 +93,25 @@ class MobileView extends StatelessWidget {
                         TombolKategori(Icons.payments_outlined, 'Pembayaran'),
                         TombolKategori(Icons.money_outlined, 'Peminjaman'),
                         TombolKategori(Icons.comment_bank, 'Mutasi'),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => MyGrid()),
+                            );
+                          },
+                          child: Text('MyGrid'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyGrid2()),
+                            );
+                          },
+                          child: Text('MyGrid2'),
+                        ),
                       ],
                     ),
                   ),

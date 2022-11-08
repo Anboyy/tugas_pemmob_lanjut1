@@ -1,17 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:tugas_pemmob_lanjut1/Pages/LoginPage.dart';
-import 'package:tugas_pemmob_lanjut1/provider/bottomnavbarListener.dart';
-import 'package:responsive_framework/responsive_framework.dart';
 
 void main() {
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => BottomBarListener()),
-      ],
-      child: const MyApp(),
-    ),
+    const MyApp(),
   );
 }
 

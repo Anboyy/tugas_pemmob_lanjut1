@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tugas_pemmob_lanjut1/Pages/belajardio.dart';
 import 'package:tugas_pemmob_lanjut1/material/bottomappbar.dart';
 
 class TombolKategori extends StatefulWidget {
@@ -28,9 +29,7 @@ class _TombolKategoriState extends State<TombolKategori> {
             color: Colors.lightBlueAccent,
             borderRadius: BorderRadius.circular(10)),
         child: InkWell(
-          onTap: () {
-            print(context.read<BottomAppBarAn>());
-          },
+          onTap: () {},
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

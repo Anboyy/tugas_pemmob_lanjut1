@@ -11,7 +11,7 @@ class Dashboard extends StatefulWidget {
   State<Dashboard> createState() => _DashboardState();
 }
 
-class _DashboardState extends State<Dashboard> with ChangeNotifier {
+class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,13 +20,15 @@ class _DashboardState extends State<Dashboard> with ChangeNotifier {
         centerTitle: true,
         actions: [IconButton(onPressed: () {}, icon: Icon(Icons.logout))],
       ),
-      body: LayoutBuilder(builder: ((context, constraints) {
-        if (constraints.maxWidth > 480) {
-          return TabletView();
-        } else {
-          return MobileView();
-        }
-      })),
+      body: LayoutBuilder(
+        builder: ((context, constraints) {
+          if (constraints.maxWidth > 480) {
+            return TabletView();
+          } else {
+            return MobileView();
+          }
+        }),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FAButton(),
       bottomNavigationBar: BottomAppBarAn(),

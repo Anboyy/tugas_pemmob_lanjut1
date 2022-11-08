@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:tugas_pemmob_lanjut1/Pages/dashboard.dart';
-import 'package:tugas_pemmob_lanjut1/Pages/profile.dart';
-import 'package:tugas_pemmob_lanjut1/provider/bottomnavbarListener.dart';
 
 class BottomAppBarAn extends StatefulWidget {
   const BottomAppBarAn({super.key});
@@ -17,8 +13,6 @@ class _BottomAppBarAnState extends State<BottomAppBarAn> {
   void updateIndex(int value) {
     setState(() {
       TombolActive = value;
-      context.read<BottomBarListener>().botIndex(value);
-      print(context.read<BottomBarListener>().index);
     });
   }
 
