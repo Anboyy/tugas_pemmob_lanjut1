@@ -112,7 +112,7 @@ class _TransferState extends State<Transfer> {
         actions: [
           TextButton(
             onPressed: () {
-              setState(() {});
+              Navigator.pop(context);
             },
             child: Text('Batal'),
           ),
@@ -121,6 +121,7 @@ class _TransferState extends State<Transfer> {
               tranferSaldo(id, jumlahSetoranController.text);
               setState(() {
                 tranferSaldo(id, jumlahSetoranController.text);
+                Navigator.pop(context);
               });
             },
             child: Text('Transfer'),

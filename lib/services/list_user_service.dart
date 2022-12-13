@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:tugas_pemmob_lanjut1/model/list_users_model.dart';
 
 class ListUsersService {
@@ -90,6 +89,23 @@ class ListUsersService {
       print('berhasil');
     } catch (e) {
       print('gagal');
+    }
+  }
+
+  postRegister(String username, String password, String nama) async {
+    String url = 'https://koperasiundiksha.000webhostapp.com/register';
+    final Response response;
+    FormData formData = FormData.fromMap(
+        {"username": username, "password": password, "nama": nama});
+    response = await dio.post(
+      url,
+      data: formData,
+    );
+    if (response.data['pesan'] == "Data berhasil disimpan, saldo awal 50.000") {
+      print('Berhasil');
+    } else {
+      print(response.data);
+      return postRegister(username, password, nama);
     }
   }
 }

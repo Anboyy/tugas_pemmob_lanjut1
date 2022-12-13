@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:tugas_pemmob_lanjut1/Pages/dashboard.dart';
-import 'package:tugas_pemmob_lanjut1/Pages/register.dart';
+import 'package:tugas_pemmob_lanjut1/Pages/LoginPage.dart';
 import 'package:tugas_pemmob_lanjut1/model/list_users_model.dart';
 import 'package:tugas_pemmob_lanjut1/services/list_user_service.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   late String Username = '';
   late String Password = '';
-
-  AlertDialog alert = AlertDialog(
-    title: Text("Login Failed"),
-    content: Text("Try to Check your Username or Password"),
-  );
+  late String nama = '';
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +91,25 @@ class _LoginPageState extends State<LoginPage> {
                                 contentPadding: EdgeInsets.all(1),
                               ),
                             ),
+                            Row(
+                              children: const [
+                                Text('Nama'),
+                                Spacer(),
+                              ],
+                            ),
+                            TextField(
+                              onChanged: (value) {
+                                nama = value;
+                              },
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black),
+                                ),
+                                contentPadding: EdgeInsets.all(1),
+                              ),
+                            ),
                             // InputLogin(Password, true),
                             Container(
                               width: MediaQuery.of(context).size.width * 0.2,
@@ -105,15 +119,15 @@ class _LoginPageState extends State<LoginPage> {
                                   ListUsersService _service =
                                       ListUsersService();
                                   ListUsersModel user = await _service
-                                      .postLogin(Username, Password);
+                                      .postRegister(Username, Password, nama);
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            Dashboard(user: user)),
+                                        builder: (context) => LoginPage()),
                                   );
+                                  setState(() {});
                                 },
-                                child: Text("Login"),
+                                child: Text("Daftar"),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Color(0xFF1C2474),
                                   shape: StadiumBorder(),
@@ -128,10 +142,10 @@ class _LoginPageState extends State<LoginPage> {
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => RegisterPage()),
+                                          builder: (context) => LoginPage()),
                                     );
                                   },
-                                  child: Text('Daftar Sekarang'),
+                                  child: Text('Sudah Daftar?'),
                                 ),
                                 TextButton(
                                   onPressed: () {},
@@ -168,11 +182,5 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-  }
-
-  postLogin(String username, String password) async {
-    ListUsersService _service = ListUsersService();
-    await _service.postLogin(username, password);
-    // print(user.username);
   }
 }
