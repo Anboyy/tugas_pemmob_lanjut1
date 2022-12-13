@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_pemmob_lanjut1/Pages/dashboard.dart';
+import 'package:tugas_pemmob_lanjut1/model/list_users_model.dart';
 import 'package:tugas_pemmob_lanjut1/services/list_user_service.dart';
 
 class LoginPage extends StatefulWidget {
@@ -99,23 +100,34 @@ class _LoginPageState extends State<LoginPage> {
                               width: MediaQuery.of(context).size.width * 0.2,
                               // child: Button('Login'),
                               child: ElevatedButton(
-                                onPressed: () {
-                                  if (Username ==
-                                          'I Kadek Yawan Divta Pramana' &&
-                                      Password == '2015051093') {
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Dashboard()),
-                                    );
-                                  } else {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return alert;
-                                      },
-                                    );
-                                  }
+                                onPressed: () async {
+                                  ListUsersService _service =
+                                      ListUsersService();
+                                  ListUsersModel user = await _service
+                                      .postLogin(Username, Password);
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            Dashboard(user: user)),
+                                  );
+                                  // postLogin(Username, Password);
+                                  //   if (Username ==
+                                  //           'I Kadek Yawan Divta Pramana' &&
+                                  //       Password == '2015051093') {
+                                  //     Navigator.pushReplacement(
+                                  //       context,
+                                  //       MaterialPageRoute(
+                                  //           builder: (context) => Dashboard()),
+                                  //     );
+                                  //   } else {
+                                  //     showDialog(
+                                  //       context: context,
+                                  //       builder: (BuildContext context) {
+                                  //         return alert;
+                                  //       },
+                                  //     );
+                                  //   }
                                 },
                                 child: Text("Login"),
                                 style: ElevatedButton.styleFrom(
@@ -166,5 +178,11 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  postLogin(String username, String password) async {
+    ListUsersService _service = ListUsersService();
+    await _service.postLogin(username, password);
+    // print(user.username);
   }
 }

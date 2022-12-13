@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:tugas_pemmob_lanjut1/Pages/belajardio.dart';
-import 'package:tugas_pemmob_lanjut1/Pages/grid2.dart';
+import 'package:tugas_pemmob_lanjut1/Pages/fitur_bank_indonesia/cek_saldo.dart';
+import 'package:tugas_pemmob_lanjut1/Pages/fitur_bank_indonesia/setoran.dart';
+import 'package:tugas_pemmob_lanjut1/Pages/fitur_bank_indonesia/mutasi.dart';
+import 'package:tugas_pemmob_lanjut1/Pages/fitur_bank_indonesia/penarikan.dart';
+import 'package:tugas_pemmob_lanjut1/Pages/fitur_bank_indonesia/peminjaman.dart';
+import 'package:tugas_pemmob_lanjut1/Pages/fitur_bank_indonesia/transfer.dart';
 import 'package:tugas_pemmob_lanjut1/material/tombolKategori.dart';
+import 'package:tugas_pemmob_lanjut1/model/list_users_model.dart';
 import 'package:tugas_pemmob_lanjut1/personal/nasabah.dart';
 
 class MobileView extends StatelessWidget {
-  const MobileView({
-    Key? key,
-  }) : super(key: key);
+  final ListUsersModel user;
+
+  MobileView({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +55,10 @@ class MobileView extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  DataNasabah(
-                                      'Nasabah', 'I Kadek Yawan Divta Pramana'),
+                                  DataNasabah('Nasabah', user.nama.toString()),
                                   SizedBox(height: 5),
-                                  DataNasabah('Tabungan', '12.000.000'),
+                                  DataNasabah(
+                                      'Tabungan', user.saldo.toString()),
                                 ],
                               ),
                             ),
@@ -84,33 +89,73 @@ class MobileView extends StatelessWidget {
                       ),
                     ),
                     child: Wrap(
-                      spacing: 10,
-                      runSpacing: 10,
+                      spacing: 30,
+                      runSpacing: 30,
                       children: [
-                        TombolKategori(Icons.payment, 'Cek Saldo'),
-                        TombolKategori(Icons.monetization_on_sharp, 'Transfer'),
-                        TombolKategori(Icons.payments_outlined, 'Deposito'),
-                        TombolKategori(Icons.payments_outlined, 'Pembayaran'),
-                        TombolKategori(Icons.money_outlined, 'Peminjaman'),
-                        TombolKategori(Icons.comment_bank, 'Mutasi'),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => MyGrid()),
-                            );
-                          },
-                          child: Text('MyGrid'),
-                        ),
-                        TextButton(
-                          onPressed: () {
+                        TombolKategori(
+                          Icons.payment,
+                          'Cek Saldo',
+                          () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MyGrid2()),
+                                  builder: (context) => CekSaldo()),
                             );
                           },
-                          child: Text('MyGrid2'),
+                        ),
+                        TombolKategori(
+                          Icons.monetization_on_sharp,
+                          'Transfer',
+                          () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Transfer()),
+                            );
+                          },
+                        ),
+                        TombolKategori(
+                          Icons.payments_outlined,
+                          'Setoran',
+                          () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Deposito()),
+                            );
+                          },
+                        ),
+                        TombolKategori(
+                          Icons.payments_outlined,
+                          'Penarikan',
+                          () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Penarikan(user: user)),
+                            );
+                          },
+                        ),
+                        TombolKategori(
+                          Icons.money_outlined,
+                          'Peminjaman',
+                          () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Peminjaman()),
+                            );
+                          },
+                        ),
+                        TombolKategori(
+                          Icons.comment_bank,
+                          'Mutasi',
+                          () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Mutasi()),
+                            );
+                          },
                         ),
                       ],
                     ),

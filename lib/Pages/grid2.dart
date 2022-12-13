@@ -25,7 +25,6 @@ class _MyGrid2State extends State<MyGrid2> {
 
   @override
   Widget build(BuildContext context) {
-    double lebar = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(),
       body: Container(
@@ -41,13 +40,22 @@ class _MyGrid2State extends State<MyGrid2> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                  itemCount: _listUser.length,
-                  itemBuilder: (context, index) {
-                    ListUsersModel data = _listUser[index];
-                    return cardlist(data.id!.toString(), data.firstName!,
-                        Colors.red, data.avatar!, Colors.grey.shade100);
-                  }),
+              child: FutureBuilder<List<ListUsersModel>?>(
+                builder: (context, snapshot) {
+                  return ListView.builder(
+                      itemCount: _listUser.length,
+                      itemBuilder: (context, index) {
+                        ListUsersModel data = _listUser[index];
+                        return cardlist(
+                          data.user_id!.toString(),
+                          data.username!,
+                          Colors.blue,
+                          data.saldo!,
+                          Colors.grey.shade100,
+                        );
+                      });
+                },
+              ),
             ),
           ],
         ),

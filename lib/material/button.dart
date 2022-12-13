@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tugas_pemmob_lanjut1/Pages/dashboard.dart';
 
 class Button extends StatelessWidget {
   final String NamaButton;
@@ -14,10 +13,6 @@ class Button extends StatelessWidget {
             // InputLogin('Username', true).NamaController.toString() == '123' &&
             //         InputLogin('Password', false).NamaController.toString() == '123'
             NamaButton != null) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Dashboard()),
-          );
         } else {
           // print();
         }
