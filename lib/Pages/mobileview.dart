@@ -110,7 +110,8 @@ class MobileView extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Transfer()),
+                                builder: (context) => Transfer(),
+                              ),
                             );
                           },
                         ),
@@ -121,7 +122,9 @@ class MobileView extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Deposito()),
+                                  builder: (context) => Deposito(
+                                        user: user,
+                                      )),
                             );
                           },
                         ),

@@ -15,21 +15,22 @@ class _PenarikanState extends State<Penarikan> {
   final TextEditingController jumlahPenarikanController =
       TextEditingController();
 
-  void confirmDialog() {
+  confirmDialog(String? user_id, String jumlah_setoran) {
     showDialog(
-        context: (context),
-        builder: (_) => AlertDialog(
-              title: Text('Are You Sure?'),
-              actions: [
-                ElevatedButton(
-                  onPressed: () {
-                    tarikSaldo(
-                        widget.user.user_id, jumlahPenarikanController.text);
-                  },
-                  child: Text('Yes'),
-                ),
-              ],
-            ));
+      context: (context),
+      builder: (_) => AlertDialog(
+        title: Text('Are You Sure?'),
+        actions: [
+          ElevatedButton(
+            onPressed: () async {
+              await tarikSaldo(user_id, jumlah_setoran);
+              Navigator.pop(context);
+            },
+            child: Text('Yes'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -56,7 +57,12 @@ class _PenarikanState extends State<Penarikan> {
             Expanded(
               flex: 1,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  confirmDialog(
+                      widget.user.user_id, jumlahPenarikanController.text);
+                  // tarikSaldo(
+                  //     widget.user.user_id, jumlahPenarikanController.text);
+                },
                 child: Text('Tarik'),
               ),
             ),

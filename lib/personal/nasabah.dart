@@ -17,7 +17,7 @@ class DataNasabah extends StatelessWidget {
         width: double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             Text(
               Data,
               style: TextStyle(fontWeight: FontWeight.bold),
@@ -27,5 +27,10 @@ class DataNasabah extends StatelessWidget {
         ),
       ),
     );
+    // return ListTile(
+    //   title: Text(Data),
+    //   subtitle: Text(NamaNasabah),
+    //   trailing: IconButton(onPressed: (){}, icon: Icon(Icons.refresh)),
+    // );
   }
 }

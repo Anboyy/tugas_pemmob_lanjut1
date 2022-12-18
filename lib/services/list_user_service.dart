@@ -92,6 +92,19 @@ class ListUsersService {
     }
   }
 
+  setorSaldo(int user_id, double jumlah_tarikan) async {
+    String url = 'https://koperasiundiksha.000webhostapp.com/setoran';
+    final Response response;
+    FormData formData = FormData.fromMap(
+        {"user_id": user_id, "jumlah_setoran": jumlah_tarikan});
+    try {
+      response = await dio.post(url, data: formData);
+      print('berhasil');
+    } catch (e) {
+      print('gagal');
+    }
+  }
+
   postRegister(String username, String password, String nama) async {
     String url = 'https://koperasiundiksha.000webhostapp.com/register';
     final Response response;

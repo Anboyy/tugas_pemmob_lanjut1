@@ -11,27 +11,14 @@ class Transfer extends StatefulWidget {
 
 class _TransferState extends State<Transfer> {
   List<ListUsersModel> _listUser = [];
-
-  void succesDialog() {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text('Berhasil Transfer'),
-        content: TextButton(
-          onPressed: () {
-            setState(() {});
-          },
-          child: Text('OK'),
-        ),
-      ),
-    );
-  }
+  bool tranferLoading = false;
 
   getUsers() async {
     ListUsersService _service = ListUsersService();
     await _service.getDataUsers().then((value) {
       setState(() {
         _listUser = value!;
+        tranferLoading = false;
       });
     });
   }
@@ -45,12 +32,12 @@ class _TransferState extends State<Transfer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [IconButton(onPressed: getUsers, icon: Icon(Icons.refresh))],
         title: Text('Transfer'),
         centerTitle: true,
       ),
       body: Column(
         children: [
-          TextButton(onPressed: getUsers, child: Text('hallo')),
           Expanded(
             child: FutureBuilder<List<ListUsersModel>?>(
               builder: (context, snapshot) {
@@ -116,16 +103,21 @@ class _TransferState extends State<Transfer> {
             },
             child: Text('Batal'),
           ),
-          ElevatedButton(
-            onPressed: () {
-              tranferSaldo(id, jumlahSetoranController.text);
-              setState(() {
-                tranferSaldo(id, jumlahSetoranController.text);
-                Navigator.pop(context);
-              });
-            },
-            child: Text('Transfer'),
-          ),
+          (tranferLoading)
+              ? CircularProgressIndicator()
+              : ElevatedButton(
+                  onPressed: () async {
+                    setState(() {
+                      tranferLoading = true;
+                    });
+                    // tranferSaldo(id, jumlahSetoranController.text);
+                    await tranferSaldo(id, jumlahSetoranController.text);
+                    getUsers();
+
+                    Navigator.pop(context);
+                  },
+                  child: Text('Transfer'),
+                ),
         ],
         title: Text('Transfer to $nama'),
         content: Column(
