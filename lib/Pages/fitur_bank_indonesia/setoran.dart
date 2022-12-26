@@ -13,6 +13,8 @@ class Deposito extends StatefulWidget {
 
 class _DepositoState extends State<Deposito> {
   TextEditingController jumlahSetoranController = TextEditingController();
+  bool setorLoading = false;
+  int counter = 0;
 
   confirmDialog(String? user_id, String jumlah_setoran) {
     showDialog(
@@ -20,13 +22,18 @@ class _DepositoState extends State<Deposito> {
       builder: (_) => AlertDialog(
         title: Text('Are You Sure?'),
         actions: [
-          ElevatedButton(
-            onPressed: () async {
-              await setorSaldo(user_id, jumlah_setoran);
-              Navigator.pop(context);
-            },
-            child: Text('Yes'),
-          ),
+          (setorLoading)
+              ? CircularProgressIndicator()
+              : ElevatedButton(
+                  onPressed: () async {
+                    setState(() {
+                      setorLoading = true;
+                    });
+                    await setorSaldo(user_id, jumlah_setoran);
+                    Navigator.pop(context);
+                  },
+                  child: Text('Yes'),
+                ),
         ],
       ),
     );
@@ -47,6 +54,7 @@ class _DepositoState extends State<Deposito> {
               child: Column(
                 children: [
                   TextField(
+                    keyboardType: TextInputType.number,
                     controller: jumlahSetoranController,
                     decoration: InputDecoration(labelText: "Jumlah Penyetoran"),
                   ),
@@ -73,5 +81,8 @@ class _DepositoState extends State<Deposito> {
     ListUsersService _service = ListUsersService();
     await _service.setorSaldo(
         int.parse(user_id!), double.parse(jumlah_setoran));
+    setState(() {
+      setorLoading == false;
+    });
   }
 }

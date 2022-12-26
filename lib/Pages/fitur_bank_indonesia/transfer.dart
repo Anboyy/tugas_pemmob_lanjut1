@@ -15,12 +15,16 @@ class _TransferState extends State<Transfer> {
 
   getUsers() async {
     ListUsersService _service = ListUsersService();
-    await _service.getDataUsers().then((value) {
-      setState(() {
-        _listUser = value!;
-        tranferLoading = false;
-      });
-    });
+    await _service.getDataUsers().then(
+      (value) {
+        setState(
+          () {
+            _listUser = value!;
+            tranferLoading = false;
+          },
+        );
+      },
+    );
   }
 
   tranferSaldo(int user_id, String jumlah_setoran) async {
