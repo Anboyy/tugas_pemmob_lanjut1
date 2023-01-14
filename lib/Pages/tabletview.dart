@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_pemmob_lanjut1/material/kMaterial.dart';
 import 'package:tugas_pemmob_lanjut1/personal/nasabah.dart';
 
 class TabletView extends StatefulWidget {
@@ -37,7 +38,8 @@ class _TabletViewState extends State<TabletView> {
                       ),
                     ),
                     padding: EdgeInsets.all(6),
-                    color: Colors.amber,
+                    color: kWarnaBackgroundApp,
+                    // color: Colors.amber,
                     width: MediaQuery.of(context).size.width * 0.3,
                     height: MediaQuery.of(context).size.height * 0.2,
                   ),
@@ -72,9 +74,6 @@ class _TabletViewState extends State<TabletView> {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
                         Material(
                           color: Color.fromARGB(255, 66, 164, 244),
                           elevation: 10.0,
@@ -98,9 +97,6 @@ class _TabletViewState extends State<TabletView> {
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10,
                         ),
                         Material(
                           color: Color.fromARGB(255, 66, 164, 244),
@@ -126,9 +122,6 @@ class _TabletViewState extends State<TabletView> {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
                         Material(
                           color: Color.fromARGB(255, 66, 164, 244),
                           elevation: 10.0,
@@ -153,9 +146,6 @@ class _TabletViewState extends State<TabletView> {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
                         Material(
                           color: Color.fromARGB(255, 66, 164, 244),
                           elevation: 10.0,
@@ -179,9 +169,6 @@ class _TabletViewState extends State<TabletView> {
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10,
                         ),
                         Material(
                           color: Color.fromARGB(255, 66, 164, 244),
@@ -208,11 +195,11 @@ class _TabletViewState extends State<TabletView> {
                           ),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 100,
                         ),
                       ],
                     ),
-                    color: Colors.blue,
+                    color: kWarnaBackgroundApp,
                   ),
                 ],
               ),
@@ -241,6 +228,30 @@ class _TabletViewState extends State<TabletView> {
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Material customerTile(String title, int selectedIndex, Icon icon) {
+    return Material(
+      color: Color.fromARGB(255, 66, 164, 244),
+      elevation: 10.0,
+      child: ListTile(
+        onTap: () {
+          setState(() {
+            TextTitle = title;
+            currentSelectedState = selectedIndex;
+          });
+        },
+        leading: icon,
+        title: Text(
+          title,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
           ),
         ),
       ),

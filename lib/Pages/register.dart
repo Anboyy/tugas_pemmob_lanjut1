@@ -14,6 +14,7 @@ class _RegisterPageState extends State<RegisterPage> {
   late String Username = '';
   late String Password = '';
   late String nama = '';
+  late String nim = '';
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +94,24 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                             Row(
                               children: const [
+                                Text('Nim'),
+                                Spacer(),
+                              ],
+                            ),
+                            TextField(
+                              onChanged: (value) {
+                                nim = value;
+                              },
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black),
+                                ),
+                                contentPadding: EdgeInsets.all(1),
+                              ),
+                            ),
+                            Row(
+                              children: const [
                                 Text('Nama'),
                                 Spacer(),
                               ],
@@ -118,8 +137,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                 onPressed: () async {
                                   ListUsersService _service =
                                       ListUsersService();
-                                  ListUsersModel user = await _service
-                                      .postRegister(Username, Password, nama);
+                                  await _service.postRegister(
+                                      Username, Password, nama, nim);
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(

@@ -110,7 +110,7 @@ class MobileView extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => Transfer(),
+                                builder: (context) => Transfer(user: user),
                               ),
                             );
                           },

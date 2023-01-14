@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_pemmob_lanjut1/model/list_users_model.dart';
 import 'package:tugas_pemmob_lanjut1/services/list_user_service.dart';
-
 class Penarikan extends StatefulWidget {
   final ListUsersModel user;
 
@@ -12,6 +11,7 @@ class Penarikan extends StatefulWidget {
 }
 
 class _PenarikanState extends State<Penarikan> {
+  bool penarikanLoading = false;
   final TextEditingController jumlahPenarikanController =
       TextEditingController();
 
@@ -21,15 +21,20 @@ class _PenarikanState extends State<Penarikan> {
       builder: (_) => AlertDialog(
         title: Text('Are You Sure?'),
         actions: [
-          ElevatedButton(
-            onPressed: () async {
-              await tarikSaldo(user_id, jumlah_setoran);
-              Navigator.pop(context);
-            },
-            child: Text('Yes'),
+          (penarikanLoading)
+              ? CircularProgressIndicator()
+              : ElevatedButton(
+                  onPressed: () async {
+                    setState(() {
+                      penarikanLoading = true;
+                    });
+                    await tarikSaldo(user_id, jumlah_setoran);
+                    Navigator.pop(context);
+                  },
+                  child: Text('Yes'),
+                ),
+            ],
           ),
-        ],
-      ),
     );
   }
 
@@ -48,6 +53,7 @@ class _PenarikanState extends State<Penarikan> {
               child: Column(
                 children: [
                   TextField(
+                    keyboardType: TextInputType.number,
                     controller: jumlahPenarikanController,
                     decoration: InputDecoration(labelText: "Jumlah Penarikan"),
                   ),
@@ -76,5 +82,8 @@ class _PenarikanState extends State<Penarikan> {
     ListUsersService _service = ListUsersService();
     await _service.tarikSaldo(
         int.parse(user_id!), double.parse(jumlah_tarikan));
+    setState(() {
+      penarikanLoading = false;
+    });
   }
 }

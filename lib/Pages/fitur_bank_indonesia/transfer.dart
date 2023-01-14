@@ -3,7 +3,9 @@ import 'package:tugas_pemmob_lanjut1/model/list_users_model.dart';
 import 'package:tugas_pemmob_lanjut1/services/list_user_service.dart';
 
 class Transfer extends StatefulWidget {
-  const Transfer({Key? key}) : super(key: key);
+  final ListUsersModel user;
+
+  const Transfer({Key? key, required this.user}) : super(key: key);
 
   @override
   State<Transfer> createState() => _TransferState();
@@ -27,9 +29,17 @@ class _TransferState extends State<Transfer> {
     );
   }
 
-  tranferSaldo(int user_id, String jumlah_setoran) async {
+  tranferSaldo(
+      int user_id, String jumlah_setoran, String nomor_rekening) async {
     ListUsersService _service = ListUsersService();
-    await _service.transfer(user_id, double.parse(jumlah_setoran));
+    await _service.transfer(
+        user_id, double.parse(jumlah_setoran), nomor_rekening);
+  }
+
+  tarikSaldo(String? user_id, String jumlah_setoran) async {
+    ListUsersService _service = ListUsersService();
+    await _service.tarikSaldo(
+        int.parse(user_id!), double.parse(jumlah_setoran));
   }
 
   @override
@@ -97,6 +107,7 @@ class _TransferState extends State<Transfer> {
 
   transferDialog(String nama, int id) {
     TextEditingController jumlahSetoranController = TextEditingController();
+    TextEditingController noRekeningController = TextEditingController();
     return showDialog(
       context: context,
       builder: (_) => AlertDialog(
@@ -115,9 +126,11 @@ class _TransferState extends State<Transfer> {
                       tranferLoading = true;
                     });
                     // tranferSaldo(id, jumlahSetoranController.text);
-                    await tranferSaldo(id, jumlahSetoranController.text);
+                    await tarikSaldo(
+                        widget.user.user_id, jumlahSetoranController.text);
+                    await tranferSaldo(id, jumlahSetoranController.text,
+                        noRekeningController.text);
                     getUsers();
-
                     Navigator.pop(context);
                   },
                   child: Text('Transfer'),
@@ -134,6 +147,12 @@ class _TransferState extends State<Transfer> {
                       labelText: "Jumlah Setoran",
                     ),
                     controller: jumlahSetoranController,
+                  ),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: "No rekening",
+                    ),
+                    controller: noRekeningController,
                   ),
                 ],
               ),

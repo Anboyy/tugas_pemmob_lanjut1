@@ -82,7 +82,7 @@ class _DepositoState extends State<Deposito> {
     await _service.setorSaldo(
         int.parse(user_id!), double.parse(jumlah_setoran));
     setState(() {
-      setorLoading == false;
+      setorLoading = false;
     });
   }
 }

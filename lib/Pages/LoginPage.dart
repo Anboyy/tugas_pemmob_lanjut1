@@ -12,8 +12,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late String Username = '';
-  late String Password = '';
+  // String Username = '';
+  // String Password = '';
+
+  TextEditingController Username = TextEditingController();
+  TextEditingController Password = TextEditingController();
 
   AlertDialog alert = AlertDialog(
     title: Text("Login Failed"),
@@ -65,9 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                               ],
                             ),
                             TextField(
-                              onChanged: (value) {
-                                Username = value;
-                              },
+                              controller: Username,
                               obscureText: false,
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
@@ -84,9 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                               ],
                             ),
                             TextField(
-                              onChanged: (value) {
-                                Password = value;
-                              },
+                              controller: Password,
                               obscureText: true,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
@@ -105,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ListUsersService _service =
                                       ListUsersService();
                                   ListUsersModel user = await _service
-                                      .postLogin(Username, Password);
+                                      .postLogin(Username.text, Password.text);
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(

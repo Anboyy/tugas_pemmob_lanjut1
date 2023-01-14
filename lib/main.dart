@@ -27,6 +27,7 @@ class _MyAppState extends State<MyApp> {
     setState(() {});
   }
 
+  //
   Future<void> getPreference() async {
     final pref = await SharedPreferences.getInstance();
     final myData = pref.getBool('isDark');
@@ -53,7 +54,7 @@ class _MyAppState extends State<MyApp> {
     return FutureBuilder(
         future: getPreference(),
         builder: (context, _) => MaterialApp(
-              theme: isDark ? dark : light,
+          // theme: isDark ? dark : light,
               // builder: (context, child) => ResponsiveWrapper.builder(
               //   child,
               //   breakpoints: [

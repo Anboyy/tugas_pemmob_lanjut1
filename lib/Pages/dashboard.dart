@@ -3,6 +3,7 @@ import 'package:tugas_pemmob_lanjut1/Pages/mobileview.dart';
 import 'package:tugas_pemmob_lanjut1/Pages/tabletview.dart';
 import 'package:tugas_pemmob_lanjut1/material/bottomappbar.dart';
 import 'package:tugas_pemmob_lanjut1/material/floatingActionButton.dart';
+import 'package:tugas_pemmob_lanjut1/material/kMaterial.dart';
 import 'package:tugas_pemmob_lanjut1/model/list_users_model.dart';
 
 class Dashboard extends StatefulWidget {
@@ -20,6 +21,7 @@ class _DashboardState extends State<Dashboard> {
     return FutureBuilder(
         builder: (context, _) => Scaffold(
               appBar: AppBar(
+                backgroundColor: kWarnaBackgroundApp,
                 title: Text('Koperasi Undiksha'),
                 centerTitle: true,
                 actions: [

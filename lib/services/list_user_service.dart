@@ -5,7 +5,7 @@ class ListUsersService {
   Dio dio = Dio();
 
   Future<List<ListUsersModel>?> getDataUsers() async {
-    String url = "https://koperasiundiksha.000webhostapp.com/users";
+    String url = "http://apikoperasi.rey1024.com/users";
     final Response response;
     try {
       response = await dio.get(
@@ -16,7 +16,7 @@ class ListUsersService {
         var json = response.data;
         //boleh dipakai sesuai kondisi data json
         if (json is Map && json.keys.contains('data')) {
-          var data = json['data'];
+          var data = json[0]['data'];
           if (data is List) {
             return data
                 .map<ListUsersModel>((u) => ListUsersModel.fromJson(u))
@@ -32,7 +32,8 @@ class ListUsersService {
   }
 
   postLogin(String username, String password) async {
-    String url = 'https://koperasiundiksha.000webhostapp.com';
+    // final prefs = await SharedPreferences.getInstance();
+    String url = 'http://apikoperasi.rey1024.com';
     final Response response;
     FormData formData =
         FormData.fromMap({"username": username, "password": password});
@@ -44,30 +45,25 @@ class ListUsersService {
       url,
       data: formData,
     );
-    if (response.data['status'] == "success") {
+    if (response.statusCode == 200) {
       final data = response.data;
-      print(data['user_id']);
+      // print(data['user_id']);
       return ListUsersModel(
-        user_id: data['data'][0]['user_id'],
+        user_id: data[0]['user_id'],
         username: username,
         password: password,
-        nama: data['data'][0]['nama'],
-        saldo: data['data'][0]['saldo'],
+        nama: data[0]['nama'],
+        saldo: data[0]['saldo'],
+        nomor_rekening: data[0]['nomor_rekening'],
       );
+      // return print(response.statusCode);
     } else {
-      // final data = jsonDecode(response.data);
-      // final runHyperlink = data['data'].map( (e) => e['nama']).toList().cast<Map<String, dynamic>>();
-      // final dataUser = data['data']
-      //     .map((i) => i['nama'])
-      //     .toList().cast<Map<String, dynamic>>();
-      // print(dataUser);
-      // print(response.data['data'][0]['nama']);
-      return postLogin(username, password);
+      return print('gagal');
     }
   }
 
-  transfer(int user_id, double jumlah_setoran) async {
-    String url = 'https://koperasiundiksha.000webhostapp.com/setoran';
+  transfer(int user_id, double jumlah_setoran, String nomor_rekening) async {
+    String url = 'http://apikoperasi.rey1024.com/transfer';
     final Response response;
     FormData formData = FormData.fromMap(
         {"user_id": user_id, "jumlah_setoran": jumlah_setoran});
@@ -80,7 +76,7 @@ class ListUsersService {
   }
 
   tarikSaldo(int user_id, double jumlah_tarikan) async {
-    String url = 'https://koperasiundiksha.000webhostapp.com/tarikan';
+    String url = 'http://apikoperasi.rey1024.com/tarikan';
     final Response response;
     FormData formData = FormData.fromMap(
         {"user_id": user_id, "jumlah_tarikan": jumlah_tarikan});
@@ -93,7 +89,7 @@ class ListUsersService {
   }
 
   setorSaldo(int user_id, double jumlah_tarikan) async {
-    String url = 'https://koperasiundiksha.000webhostapp.com/setoran';
+    String url = 'http://apikoperasi.rey1024.com/setoran';
     final Response response;
     FormData formData = FormData.fromMap(
         {"user_id": user_id, "jumlah_setoran": jumlah_tarikan});
@@ -105,20 +101,21 @@ class ListUsersService {
     }
   }
 
-  postRegister(String username, String password, String nama) async {
-    String url = 'https://koperasiundiksha.000webhostapp.com/register';
+  postRegister(
+      String username, String password, String nama, String nim) async {
+    String url = 'http://apikoperasi.rey1024.com/register';
     final Response response;
     FormData formData = FormData.fromMap(
-        {"username": username, "password": password, "nama": nama});
+        {"username": username, "password": password, "nama": nama, "nim": nim});
     response = await dio.post(
       url,
       data: formData,
     );
-    if (response.data['pesan'] == "Data berhasil disimpan, saldo awal 50.000") {
+    if (response.data['status'] == "success") {
       print('Berhasil');
     } else {
       print(response.data);
-      return postRegister(username, password, nama);
+      // return postRegister(username, password, nama, nim);
     }
   }
 }
