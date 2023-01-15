@@ -13,15 +13,12 @@ class ListUsersService {
       );
       // print(response.data);
       if (response.statusCode == 200) {
-        var json = response.data;
+        var json1 = response.data;
         //boleh dipakai sesuai kondisi data json
-        if (json is Map && json.keys.contains('data')) {
-          var data = json[0]['data'];
-          if (data is List) {
-            return data
-                .map<ListUsersModel>((u) => ListUsersModel.fromJson(u))
-                .toList();
-          }
+        if (json1 is List) {
+          return json1
+              .map<ListUsersModel>((u) => ListUsersModel.fromJson(u))
+              .toList();
         }
       }
       return null;
