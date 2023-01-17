@@ -47,7 +47,6 @@ class _MobileViewState extends State<MobileView> {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,8 +58,26 @@ class _MobileViewState extends State<MobileView> {
                                 ),
                               ],
                             ),
+                            Spacer(),
                             IconButton(
                                 onPressed: () {}, icon: Icon(Icons.logout)),
+                            Container(
+                              height: 50,
+                              width: 50,
+                              child: CircleAvatar(
+                                backgroundColor: Colors.green,
+                                // radius: 115,
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.greenAccent[100],
+                                  radius: 110,
+                                  child: CircleAvatar(
+                                    backgroundImage: AssetImage(
+                                        'Assets/images/logo.png'), //NetworkImage
+                                    // radius: 100,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -85,9 +102,15 @@ class _MobileViewState extends State<MobileView> {
                                 Row(
                                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text('My Total Balance'),
+                                    Text(
+                                      'My Total Balance',
+                                      style: kTextDalam,
+                                    ),
                                     Spacer(),
-                                    Text(saldo.toString()),
+                                    Text(
+                                      'Rp. ' + saldo.toString(),
+                                      style: kTextDalam,
+                                    ),
                                     IconButton(
                                         onPressed: () async {
                                           ListUsersService _service =
@@ -163,17 +186,6 @@ class _MobileViewState extends State<MobileView> {
                     runSpacing: 30,
                     children: [
                       TombolKategori(
-                        Icons.payment,
-                        'Cek Saldo',
-                            () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CekSaldo()),
-                          );
-                        },
-                      ),
-                      TombolKategori(
                         Icons.monetization_on_sharp,
                         'Transfer',
                             () {
@@ -207,27 +219,6 @@ class _MobileViewState extends State<MobileView> {
                             MaterialPageRoute(
                                 builder: (context) =>
                                     Penarikan(user: widget.user)),
-                          );
-                        },
-                      ),
-                      TombolKategori(
-                        Icons.money_outlined,
-                        'Peminjaman',
-                            () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Peminjaman()),
-                          );
-                        },
-                      ),
-                      TombolKategori(
-                        Icons.comment_bank,
-                        'Mutasi',
-                            () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Mutasi()),
                           );
                         },
                       ),

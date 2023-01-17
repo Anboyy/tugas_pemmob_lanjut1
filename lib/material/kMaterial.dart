@@ -13,3 +13,11 @@ TextStyle kNormalFont = TextStyle(
   color: Colors.white,
   fontSize: 16,
 );
+
+TextStyle kTextDalam = TextStyle(
+  fontWeight: FontWeight.w500,
+  color: Color(0xff6D7785),
+  fontSize: 16,
+);
+
+// #6D7785
