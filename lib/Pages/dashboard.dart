@@ -20,17 +20,18 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return FutureBuilder(
         builder: (context, _) => Scaffold(
-              appBar: AppBar(
-                backgroundColor: kWarnaBackgroundApp,
-                title: Text('Koperasi Undiksha'),
-                centerTitle: true,
-                actions: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.logout),
-                  ),
-                ],
-              ),
+              backgroundColor: Color(0xFFF6F8FE),
+              // appBar: AppBar(
+              //   backgroundColor: kWarnaBackgroundApp,
+              //   title: Text('Koperasi Undiksha'),
+              //   centerTitle: true,
+              //   actions: [
+              //     IconButton(
+              //       onPressed: () {},
+              //       icon: Icon(Icons.logout),
+              //     ),
+              //   ],
+              // ),
               body: LayoutBuilder(
                 builder: ((context, constraints) {
                   if (constraints.maxWidth > 480) {

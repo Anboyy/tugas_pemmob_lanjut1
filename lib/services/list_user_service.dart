@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tugas_pemmob_lanjut1/model/list_users_model.dart';
 
 class ListUsersService {
@@ -29,7 +30,10 @@ class ListUsersService {
   }
 
   postLogin(String username, String password) async {
-    // final prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoged', true);
+    await prefs.setString('username', username);
+    await prefs.setString('password', password);
     String url = 'http://apikoperasi.rey1024.com';
     final Response response;
     FormData formData =
@@ -59,11 +63,19 @@ class ListUsersService {
     }
   }
 
-  transfer(int user_id, double jumlah_setoran, String nomor_rekening) async {
+  //Transfer Service
+  transfer(
+    int id_pengirim,
+    double jumlah_setoran,
+    String nomor_rekening,
+  ) async {
     String url = 'http://apikoperasi.rey1024.com/transfer';
     final Response response;
-    FormData formData = FormData.fromMap(
-        {"user_id": user_id, "jumlah_setoran": jumlah_setoran});
+    FormData formData = FormData.fromMap({
+      "id_pengirim": id_pengirim,
+      "jumlah_transfer": jumlah_setoran,
+      "nomor_rekening": nomor_rekening
+    });
     try {
       response = await dio.post(url, data: formData);
       print('berhasil');
@@ -80,19 +92,57 @@ class ListUsersService {
     try {
       response = await dio.post(url, data: formData);
       print('berhasil');
+      print(response.data);
     } catch (e) {
       print('gagal');
     }
   }
 
-  setorSaldo(int user_id, double jumlah_tarikan) async {
+  getSaldo(int user_id) async {
+    String url = 'http://apikoperasi.rey1024.com/getsingleuser';
+    final Response response;
+    FormData formData = FormData.fromMap({"user_id": user_id});
+    response = await dio.post(url, data: formData);
+    if (response.statusCode == 200) {
+      final data = response.data;
+      print(data[0]['saldo']);
+      return int.parse(data[0]['saldo']);
+      // return print(response.statusCode);
+    } else {
+      return print('gagal');
+    }
+  }
+
+  getSingleUser(int user_id) async {
+    String url = 'http://apikoperasi.rey1024.com/getsingleuser';
+    final Response response;
+    FormData formData = FormData.fromMap({"user_id": user_id});
+    response = await dio.post(url, data: formData);
+    if (response.statusCode == 200) {
+      final data = response.data;
+      return ListUsersModel(
+        user_id: data[0]['user_id'],
+        username: data[0]['username'],
+        password: data[0]['password'],
+        nama: data[0]['nama'],
+        saldo: data[0]['saldo'],
+        nomor_rekening: data[0]['nomor_rekening'],
+      );
+      // return print(response.statusCode);
+    } else {
+      return print('gagal');
+    }
+  }
+
+  setorSaldo(int user_id, double jumlah_setoran) async {
     String url = 'http://apikoperasi.rey1024.com/setoran';
     final Response response;
     FormData formData = FormData.fromMap(
-        {"user_id": user_id, "jumlah_setoran": jumlah_tarikan});
+        {"user_id": user_id, "jumlah_setoran": jumlah_setoran});
     try {
       response = await dio.post(url, data: formData);
       print('berhasil');
+      print(response.data);
     } catch (e) {
       print('gagal');
     }

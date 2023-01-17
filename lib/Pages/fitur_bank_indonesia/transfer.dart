@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tugas_pemmob_lanjut1/Pages/fitur_bank_indonesia/transfer_from_rekening.dart';
 import 'package:tugas_pemmob_lanjut1/model/list_users_model.dart';
 import 'package:tugas_pemmob_lanjut1/services/list_user_service.dart';
 
@@ -36,17 +37,24 @@ class _TransferState extends State<Transfer> {
         user_id, double.parse(jumlah_setoran), nomor_rekening);
   }
 
-  tarikSaldo(String? user_id, String jumlah_setoran) async {
-    ListUsersService _service = ListUsersService();
-    await _service.tarikSaldo(
-        int.parse(user_id!), double.parse(jumlah_setoran));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [IconButton(onPressed: getUsers, icon: Icon(Icons.refresh))],
+        actions: [
+          IconButton(onPressed: getUsers, icon: Icon(Icons.refresh)),
+          IconButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => TranferRekening(
+                            user: widget.user,
+                          )),
+                );
+              },
+              icon: Icon(Icons.add)),
+        ],
         title: Text('Transfer'),
         centerTitle: true,
       ),
@@ -79,13 +87,14 @@ class _TransferState extends State<Transfer> {
   Widget listTileUser(String id, String? saldo, String subtitle, Color color,
       String nilai, Color bgColor, String nama) {
     return ListTile(
-      isThreeLine: true,
+      // isThreeLine: true,
       title: Text(nama,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      subtitle: Text(subtitle + '\n' + saldo.toString()),
+      // subtitle: Text(subtitle + '\n' + saldo.toString()),
       trailing: IconButton(
           onPressed: () {
-            transferDialog(nama, int.parse(id));
+            // transferDialog(nama, int.parse(id));
+            userPopUp(int.parse(id));
             // succesDialog();
           },
           icon: Icon(Icons.money_outlined)),
@@ -105,9 +114,41 @@ class _TransferState extends State<Transfer> {
     );
   }
 
-  transferDialog(String nama, int id) {
+  userPopUp(int id) async {
+    ListUsersService _service = ListUsersService();
+    ListUsersModel user = await _service.getSingleUser(id);
+    return showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(user.nama.toString()),
+                  Text("Nomor rekening: " + user.nomor_rekening.toString()),
+                ],
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text("Batal")),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      transferDialog(
+                          user.nama.toString(),
+                          int.parse(widget.user.user_id.toString()),
+                          user.nomor_rekening.toString());
+                    },
+                    child: Text("Transfer"))
+              ],
+            ));
+  }
+
+  transferDialog(String nama, int id, String nomor_rekening) {
     TextEditingController jumlahSetoranController = TextEditingController();
-    TextEditingController noRekeningController = TextEditingController();
+    // TextEditingController nomor_rekening = TextEditingController();
     return showDialog(
       context: context,
       builder: (_) => AlertDialog(
@@ -125,11 +166,8 @@ class _TransferState extends State<Transfer> {
                     setState(() {
                       tranferLoading = true;
                     });
-                    // tranferSaldo(id, jumlahSetoranController.text);
-                    await tarikSaldo(
-                        widget.user.user_id, jumlahSetoranController.text);
-                    await tranferSaldo(id, jumlahSetoranController.text,
-                        noRekeningController.text);
+                    await tranferSaldo(
+                        id, jumlahSetoranController.text, nomor_rekening);
                     getUsers();
                     Navigator.pop(context);
                   },
@@ -148,12 +186,12 @@ class _TransferState extends State<Transfer> {
                     ),
                     controller: jumlahSetoranController,
                   ),
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: "No rekening",
-                    ),
-                    controller: noRekeningController,
-                  ),
+                  // TextField(
+                  //   decoration: InputDecoration(
+                  //     labelText: "No rekening",
+                  //   ),
+                  //   controller: noRekeningController,
+                  // ),
                 ],
               ),
             ),
