@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_pemmob_lanjut1/material/kMaterial.dart';
+import 'package:tugas_pemmob_lanjut1/model/list_users_model.dart';
 import 'package:tugas_pemmob_lanjut1/personal/nasabah.dart';
 
 class TabletView extends StatefulWidget {
-  TabletView({
-    Key? key,
-  }) : super(key: key);
+  TabletView({Key? key, required this.user}) : super(key: key);
+
+  final ListUsersModel user;
 
   @override
   State<TabletView> createState() => _TabletViewState();

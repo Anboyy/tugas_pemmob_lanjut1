@@ -6,6 +6,7 @@ import 'package:tugas_pemmob_lanjut1/Pages/fitur_bank_indonesia/penarikan.dart';
 import 'package:tugas_pemmob_lanjut1/Pages/fitur_bank_indonesia/peminjaman.dart';
 import 'package:tugas_pemmob_lanjut1/Pages/fitur_bank_indonesia/transfer.dart';
 import 'package:tugas_pemmob_lanjut1/material/kMaterial.dart';
+import 'package:tugas_pemmob_lanjut1/material/tombolDalam.dart';
 import 'package:tugas_pemmob_lanjut1/material/tombolKategori.dart';
 import 'package:tugas_pemmob_lanjut1/model/list_users_model.dart';
 import 'package:tugas_pemmob_lanjut1/personal/nasabah.dart';
@@ -84,7 +85,7 @@ class _MobileViewState extends State<MobileView> {
                       Padding(
                         padding: const EdgeInsets.all(19.0),
                         child: Material(
-                          elevation: 10,
+                          elevation: 3,
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),
@@ -123,34 +124,50 @@ class _MobileViewState extends State<MobileView> {
                                         icon: Icon(Icons.refresh))
                                   ],
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Flexible(
-                                      flex: 1,
-                                      child: Image.asset(
-                                        'Assets/images/logo.png',
-                                        scale: 8,
-                                      ),
-                                    ),
-                                    Flexible(
-                                      flex: 2,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          DataNasabah('Nasabah',
-                                              widget.user.nama.toString()),
-                                          SizedBox(height: 10),
-                                          DataNasabah(
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Flexible(
+                                          child: TombolDalam(
+                                              'Nama Nasabah',
+                                              Icons.account_circle,
+                                              widget.user.nama.toString(),
+                                              () {})),
+                                      Flexible(
+                                          child: TombolDalam(
                                               'Nomor Rekening',
+                                              Icons.contact_mail,
                                               widget.user.nomor_rekening
-                                                  .toString()),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
+                                                  .toString(),
+                                              () {})),
+                                      // Flexible(
+                                      //   flex: 1,
+                                      //   child: Image.asset(
+                                      //     'Assets/images/logo.png',
+                                      //     scale: 8,
+                                      //   ),
+                                      // ),
+                                      // Flexible(
+                                      //   flex: 1,
+                                      //   child: Column(
+                                      //     crossAxisAlignment:
+                                      //         CrossAxisAlignment.start,
+                                      //     children: [
+                                      //       DataNasabah('Nasabah',
+                                      //           widget.user.nama.toString()),
+                                      //       SizedBox(height: 10),
+                                      //       DataNasabah(
+                                      //           'Nomor Rekening',
+                                      //           widget.user.nomor_rekening
+                                      //               .toString()),
+                                      //     ],
+                                      //   ),
+                                      // ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -165,68 +182,65 @@ class _MobileViewState extends State<MobileView> {
             SizedBox(
               height: 20,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Material(
-                elevation: 5,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
+            Wrap(
+              spacing: 30,
+              runSpacing: 30,
+              children: [
+                TombolKategori(
+                  Icons.monetization_on_sharp,
+                  'Transfer',
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Transfer(user: widget.user),
+                      ),
+                    );
+                  },
                 ),
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: Color(0xFF1C2474),
-                    ),
-                  ),
-                  child: Wrap(
-                    spacing: 30,
-                    runSpacing: 30,
-                    children: [
-                      TombolKategori(
-                        Icons.monetization_on_sharp,
-                        'Transfer',
-                            () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Transfer(user: widget.user),
-                            ),
-                          );
-                        },
-                      ),
-                      TombolKategori(
-                        Icons.payments_outlined,
-                        'Setoran',
-                            () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Deposito(
-                                  user: widget.user,
-                                    )),
-                          );
-                        },
-                      ),
-                      TombolKategori(
-                        Icons.payments_outlined,
-                        'Penarikan',
-                            () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    Penarikan(user: widget.user)),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
+                TombolKategori(
+                  Icons.payments_outlined,
+                  'Setoran',
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Deposito(
+                                user: widget.user,
+                              )),
+                    );
+                  },
                 ),
-              ),
+                TombolKategori(
+                  Icons.payments_outlined,
+                  'Penarikan',
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Penarikan(user: widget.user)),
+                    );
+                  },
+                ),
+              ],
             ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Material(
+            //     ,
+            //     borderRadius: BorderRadius.all(
+            //       Radius.circular(10),
+            //     ),
+            //     child: Container(
+            //       padding: EdgeInsets.all(10),
+            //       decoration: BoxDecoration(
+            //         color: Colors.white,
+            //         borderRadius: BorderRadius.circular(10),
+            //       ),
+            //       // child:
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height: 20,
             ),

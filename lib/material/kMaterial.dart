@@ -16,7 +16,13 @@ TextStyle kNormalFont = TextStyle(
 
 TextStyle kTextDalam = TextStyle(
   fontWeight: FontWeight.w500,
-  color: Color(0xff6D7785),
+  color: Colors.teal,
+  fontSize: 16,
+);
+
+TextStyle kTextDalamBold = TextStyle(
+  fontWeight: FontWeight.bold,
+  color: Colors.black,
   fontSize: 16,
 );
 

@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_pemmob_lanjut1/material/kMaterial.dart';
 
-class TombolKategori extends StatefulWidget {
+class TombolDalam extends StatefulWidget {
+  const TombolDalam(this.title, this.iconTombol, this.nama, this.onPressed);
+
   final iconTombol;
+  final String title;
   final String nama;
   final VoidCallback? onPressed;
 
-  const TombolKategori(this.iconTombol, this.nama, this.onPressed);
-
   @override
-  State<TombolKategori> createState() => _TombolKategoriState();
+  State<TombolDalam> createState() => _TombolDalamState();
 }
 
-class _TombolKategoriState extends State<TombolKategori> {
+class _TombolDalamState extends State<TombolDalam> {
   @override
   Widget build(BuildContext context) {
     final heighscreen = MediaQuery.of(context).size.height;
@@ -20,12 +21,13 @@ class _TombolKategoriState extends State<TombolKategori> {
       children: [
         Material(
           borderRadius: BorderRadius.circular(50),
-          elevation: 4,
+          // elevation: 4,
           child: Container(
-            width: heighscreen * 0.13,
-            height: heighscreen * 0.13,
+            width: heighscreen * 0.1,
+            height: heighscreen * 0.1,
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(50)),
+                color: Color(0xFFDBE0EA),
+                borderRadius: BorderRadius.circular(25)),
             child: InkWell(
               onTap: widget.onPressed,
               child: Column(
@@ -33,8 +35,8 @@ class _TombolKategoriState extends State<TombolKategori> {
                 children: [
                   Icon(
                     widget.iconTombol,
-                    size: 40,
-                    color: Colors.lightBlueAccent,
+                    size: 30,
+                    color: Colors.white,
                   ),
                   //
                 ],
@@ -44,6 +46,10 @@ class _TombolKategoriState extends State<TombolKategori> {
         ),
         SizedBox(
           height: 10,
+        ),
+        Text(
+          widget.title,
+          style: kTextDalamBold,
         ),
         Text(
           widget.nama,

@@ -30,6 +30,14 @@ class _TransferState extends State<Transfer> {
     );
   }
 
+  tarikSaldo(String? user_id, String biayaTf) async {
+    ListUsersService _service = ListUsersService();
+    await _service.tarikSaldo(int.parse(user_id!), double.parse(biayaTf));
+    setState(() {
+      // penarikanLoading = false;
+    });
+  }
+
   tranferSaldo(
       int user_id, String jumlah_setoran, String nomor_rekening) async {
     ListUsersService _service = ListUsersService();
@@ -149,6 +157,7 @@ class _TransferState extends State<Transfer> {
   transferDialog(String nama, int id, String nomor_rekening) {
     TextEditingController jumlahSetoranController = TextEditingController();
     // TextEditingController nomor_rekening = TextEditingController();
+    late String biayaTf = '1093';
     return showDialog(
       context: context,
       builder: (_) => AlertDialog(
@@ -168,6 +177,8 @@ class _TransferState extends State<Transfer> {
                     });
                     await tranferSaldo(
                         id, jumlahSetoranController.text, nomor_rekening);
+                    getUsers();
+                    await tarikSaldo(id.toString(), biayaTf);
                     getUsers();
                     Navigator.pop(context);
                   },

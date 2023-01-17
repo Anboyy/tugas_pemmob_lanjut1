@@ -3,7 +3,6 @@ import 'package:tugas_pemmob_lanjut1/Pages/mobileview.dart';
 import 'package:tugas_pemmob_lanjut1/Pages/tabletview.dart';
 import 'package:tugas_pemmob_lanjut1/material/bottomappbar.dart';
 import 'package:tugas_pemmob_lanjut1/material/floatingActionButton.dart';
-import 'package:tugas_pemmob_lanjut1/material/kMaterial.dart';
 import 'package:tugas_pemmob_lanjut1/model/list_users_model.dart';
 
 class Dashboard extends StatefulWidget {
@@ -35,7 +34,7 @@ class _DashboardState extends State<Dashboard> {
               body: LayoutBuilder(
                 builder: ((context, constraints) {
                   if (constraints.maxWidth > 480) {
-                    return TabletView();
+                    return TabletView(user: widget.user);
                   } else {
                     return MobileView(user: widget.user);
                   }
