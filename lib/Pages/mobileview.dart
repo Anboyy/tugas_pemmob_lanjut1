@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:tugas_pemmob_lanjut1/Pages/fitur_bank_indonesia/cek_saldo.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:tugas_pemmob_lanjut1/Pages/fitur_bank_indonesia/setoran.dart';
-import 'package:tugas_pemmob_lanjut1/Pages/fitur_bank_indonesia/mutasi.dart';
 import 'package:tugas_pemmob_lanjut1/Pages/fitur_bank_indonesia/penarikan.dart';
-import 'package:tugas_pemmob_lanjut1/Pages/fitur_bank_indonesia/peminjaman.dart';
 import 'package:tugas_pemmob_lanjut1/Pages/fitur_bank_indonesia/transfer.dart';
 import 'package:tugas_pemmob_lanjut1/material/kMaterial.dart';
 import 'package:tugas_pemmob_lanjut1/material/tombolDalam.dart';
 import 'package:tugas_pemmob_lanjut1/material/tombolKategori.dart';
 import 'package:tugas_pemmob_lanjut1/model/list_users_model.dart';
-import 'package:tugas_pemmob_lanjut1/personal/nasabah.dart';
 import 'package:tugas_pemmob_lanjut1/services/list_user_service.dart';
 
 class MobileView extends StatefulWidget {
@@ -143,29 +140,6 @@ class _MobileViewState extends State<MobileView> {
                                               widget.user.nomor_rekening
                                                   .toString(),
                                               () {})),
-                                      // Flexible(
-                                      //   flex: 1,
-                                      //   child: Image.asset(
-                                      //     'Assets/images/logo.png',
-                                      //     scale: 8,
-                                      //   ),
-                                      // ),
-                                      // Flexible(
-                                      //   flex: 1,
-                                      //   child: Column(
-                                      //     crossAxisAlignment:
-                                      //         CrossAxisAlignment.start,
-                                      //     children: [
-                                      //       DataNasabah('Nasabah',
-                                      //           widget.user.nama.toString()),
-                                      //       SizedBox(height: 10),
-                                      //       DataNasabah(
-                                      //           'Nomor Rekening',
-                                      //           widget.user.nomor_rekening
-                                      //               .toString()),
-                                      //     ],
-                                      //   ),
-                                      // ),
                                     ],
                                   ),
                                 ),

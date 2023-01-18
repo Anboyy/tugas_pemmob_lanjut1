@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:tugas_pemmob_lanjut1/material/kMaterial.dart';
 import 'package:tugas_pemmob_lanjut1/material/tombolDalam.dart';
 import 'package:tugas_pemmob_lanjut1/model/list_users_model.dart';
@@ -17,10 +18,13 @@ class _TabletViewState extends State<TabletView> {
   late int saldo = int.parse(widget.user.saldo.toString());
   int currentSelectedState = 0;
   String TextTitle = '';
-  List<ListUsersModel> _listUser = [];
   bool tranferLoading = false;
   bool penarikanLoading = false;
+  bool setorLoading = false;
   TextEditingController jumlahTarikanController = TextEditingController();
+  TextEditingController jumlahSetoranController = TextEditingController();
+  TextEditingController jumlahTransferController = TextEditingController();
+  TextEditingController nomorRekeningController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -317,22 +321,32 @@ class _TabletViewState extends State<TabletView> {
                             ],
                           )
                         : currentSelectedState == 2
-                            ? FutureBuilder<List<ListUsersModel>?>(
-                                builder: (context, snapshot) {
-                                  return ListView.builder(
-                                      itemCount: _listUser.length,
-                                      itemBuilder: (context, index) {
-                                        ListUsersModel data = _listUser[index];
-                                        return listTileUser(
-                                            data.user_id!.toString(),
-                                            data.saldo,
-                                            data.username!,
-                                            Colors.blue,
-                                            data.saldo!,
-                                            Colors.grey.shade100,
-                                            data.nama.toString());
-                                      });
-                                },
+                            ? SafeArea(
+                                child: Column(
+                                  children: [
+                                    TextField(
+                                      decoration: InputDecoration(
+                                        labelText: 'Nomor Rekening',
+                                      ),
+                                      controller: nomorRekeningController,
+                                    ),
+                                    TextField(
+                                      decoration: InputDecoration(
+                                        labelText: 'Jumlah Transfer',
+                                      ),
+                                      controller: jumlahTransferController,
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        confirmDialogTransfer(
+                                            widget.user.user_id,
+                                            jumlahTransferController.text,
+                                            nomorRekeningController.text);
+                                      },
+                                      child: Text("Transfer"),
+                                    ),
+                                  ],
+                                ),
                               )
                             : currentSelectedState == 1
                                 ? SafeArea(
@@ -355,7 +369,30 @@ class _TabletViewState extends State<TabletView> {
                                       ],
                                     ),
                                   )
-                                : Text(TextTitle)
+                                : currentSelectedState == 3
+                                    ? SafeArea(
+                                        child: Column(
+                                          children: [
+                                            TextField(
+                                              decoration: InputDecoration(
+                                                labelText: 'Jumlah Setoran',
+                                              ),
+                                              controller:
+                                                  jumlahSetoranController,
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                confirmDialogSetoran(
+                                                    widget.user.user_id,
+                                                    jumlahSetoranController
+                                                        .text);
+                                              },
+                                              child: Text("Setor"),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    : Text('data')
                   ],
                 ),
               ),
@@ -366,61 +403,59 @@ class _TabletViewState extends State<TabletView> {
     );
   }
 
-  Material customerTile(String title, int selectedIndex, Icon icon) {
-    return Material(
-      color: Color.fromARGB(255, 66, 164, 244),
-      elevation: 10.0,
-      child: ListTile(
-        onTap: () {
-          setState(() {
-            TextTitle = title;
-            currentSelectedState = selectedIndex;
-          });
-        },
-        leading: icon,
-        title: Text(
-          title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-            color: Colors.white,
-          ),
-        ),
+  confirmDialogSetoran(String? user_id, String jumlah_setoran) {
+    showDialog(
+      context: (context),
+      builder: (_) => AlertDialog(
+        title: Text('Are You Sure?'),
+        actions: [
+          (setorLoading)
+              ? CircularProgressIndicator()
+              : ElevatedButton(
+                  onPressed: () async {
+                    setState(() {
+                      setorLoading = true;
+                    });
+                    await setorSaldo(user_id, jumlah_setoran);
+                    Navigator.pop(context);
+                  },
+                  child: Text('Yes'),
+                ),
+        ],
       ),
     );
   }
 
-  Widget listTileUser(String id, String? saldo, String subtitle, Color color,
-      String nilai, Color bgColor, String nama) {
-    return ListTile(
-      // isThreeLine: true,
-      title: Text(nama,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-      // subtitle: Text(subtitle + '\n' + saldo.toString()),
-      trailing: IconButton(
-          onPressed: () {
-            // transferDialog(nama, int.parse(id));
-            // userPopUp(int.parse(id));
-            // succesDialog();
-          },
-          icon: Icon(Icons.money_outlined)),
-    );
-  }
-
-  Widget gridText(String nilai) {
-    return Center(
-      child: Text(
-        nilai,
-        style: const TextStyle(
-          fontSize: 60,
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
+  confirmDialogTransfer(
+      String? user_id, String jumlah_transfer, String nomor_rekening) {
+    showDialog(
+      context: (context),
+      builder: (_) => AlertDialog(
+        title: Text('Are You Sure Transfer to $nomor_rekening'),
+        actions: [
+          (penarikanLoading)
+              ? CircularProgressIndicator()
+              : ElevatedButton(
+                  onPressed: () async {
+                    setState(() {
+                      penarikanLoading = true;
+                    });
+                    // await tarikSaldo(user_id, jumlah_setoran);
+                    await tranferSaldo(
+                        int.parse(widget.user.user_id.toString()),
+                        jumlah_transfer,
+                        nomor_rekening);
+                    showNotification();
+                    Navigator.pop(context);
+                  },
+                  child: Text('Yes'),
+                ),
+        ],
       ),
     );
   }
 
-  confirmDialogTarikan(String? user_id, String jumlah_setoran) {
+  confirmDialogTarikan(String? user_id, String jumlah_tarikan) {
     showDialog(
       context: (context),
       builder: (_) => AlertDialog(
@@ -433,7 +468,7 @@ class _TabletViewState extends State<TabletView> {
                     setState(() {
                       penarikanLoading = true;
                     });
-                    await tarikSaldo(user_id, jumlah_setoran);
+                    await tarikSaldo(user_id, jumlah_tarikan);
                     Navigator.pop(context);
                   },
                   child: Text('Yes'),
@@ -441,6 +476,22 @@ class _TabletViewState extends State<TabletView> {
         ],
       ),
     );
+  }
+
+  setorSaldo(String? user_id, String jumlah_setoran) async {
+    ListUsersService _service = ListUsersService();
+    await _service.setorSaldo(
+        int.parse(user_id!), double.parse(jumlah_setoran));
+    setState(() {
+      setorLoading = false;
+    });
+  }
+
+  tranferSaldo(
+      int user_id, String jumlah_setoran, String nomor_rekening) async {
+    ListUsersService _service = ListUsersService();
+    await _service.transfer(
+        user_id, double.parse(jumlah_setoran), nomor_rekening);
   }
 
   tarikSaldo(String? user_id, String jumlah_tarikan) async {
@@ -451,25 +502,45 @@ class _TabletViewState extends State<TabletView> {
       penarikanLoading = false;
     });
   }
+
+  showNotification() async {
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+
+    const DarwinInitializationSettings initializationSettingsIOS =
+        DarwinInitializationSettings(
+      requestSoundPermission: false,
+      requestBadgePermission: false,
+      requestAlertPermission: false,
+    );
+    const InitializationSettings initializationSettings =
+        InitializationSettings(
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsIOS,
+    );
+
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+    );
+
+    AndroidNotificationChannel channel = const AndroidNotificationChannel(
+      'high channel',
+      'Very important notification!!',
+      description: 'the first notification',
+      importance: Importance.max,
+    );
+
+    await flutterLocalNotificationsPlugin.show(
+      1,
+      'Bank Undiksha',
+      'Berhasil Transfer',
+      NotificationDetails(
+        android: AndroidNotificationDetails(channel.id, channel.name,
+            channelDescription: channel.description),
+      ),
+    );
+  }
 }
-//
-// TextButton(onPressed: (){}, child: Text('refresh')),
-// Expanded(
-//   child: FutureBuilder<List<ListUsersModel>?>(
-//     builder: (context, snapshot) {
-//       return ListView.builder(
-//           itemCount: _listUser.length,
-//           itemBuilder: (context, index) {
-//             ListUsersModel data = _listUser[index];
-//             return listTileUser(
-//                 data.user_id!.toString(),
-//                 data.saldo,
-//                 data.username!,
-//                 Colors.blue,
-//                 data.saldo!,
-//                 Colors.grey.shade100,
-//                 data.nama.toString());
-//           });
-//     },
-//   ),
-// ),

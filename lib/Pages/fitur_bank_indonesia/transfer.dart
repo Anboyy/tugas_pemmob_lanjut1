@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:tugas_pemmob_lanjut1/Pages/fitur_bank_indonesia/transfer_from_rekening.dart';
 import 'package:tugas_pemmob_lanjut1/model/list_users_model.dart';
 import 'package:tugas_pemmob_lanjut1/services/list_user_service.dart';
+import 'package:tugas_pemmob_lanjut1/services/local_notification_service.dart';
 
 class Transfer extends StatefulWidget {
   final ListUsersModel user;
@@ -15,6 +17,14 @@ class Transfer extends StatefulWidget {
 class _TransferState extends State<Transfer> {
   List<ListUsersModel> _listUser = [];
   bool tranferLoading = false;
+  late final LocalNotificationService service;
+
+  @override
+  void initState() {
+    service = LocalNotificationService();
+    service.intialize();
+    super.initState();
+  }
 
   getUsers() async {
     ListUsersService _service = ListUsersService();
@@ -177,8 +187,8 @@ class _TransferState extends State<Transfer> {
                     });
                     await tranferSaldo(
                         id, jumlahSetoranController.text, nomor_rekening);
-                    getUsers();
                     await tarikSaldo(id.toString(), biayaTf);
+                    showNotification();
                     getUsers();
                     Navigator.pop(context);
                   },
@@ -208,6 +218,47 @@ class _TransferState extends State<Transfer> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  showNotification() async {
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+
+    const DarwinInitializationSettings initializationSettingsIOS =
+        DarwinInitializationSettings(
+      requestSoundPermission: false,
+      requestBadgePermission: false,
+      requestAlertPermission: false,
+    );
+    const InitializationSettings initializationSettings =
+        InitializationSettings(
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsIOS,
+    );
+
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+    );
+
+    AndroidNotificationChannel channel = const AndroidNotificationChannel(
+      'high channel',
+      'Very important notification!!',
+      description: 'the first notification',
+      importance: Importance.max,
+    );
+
+    await flutterLocalNotificationsPlugin.show(
+      1,
+      'Bank Undiksha',
+      'Berhasil Transfer',
+      NotificationDetails(
+        android: AndroidNotificationDetails(channel.id, channel.name,
+            channelDescription: channel.description),
       ),
     );
   }
