@@ -19,7 +19,7 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return FutureBuilder(
         builder: (context, _) => Scaffold(
-              backgroundColor: Color(0xFFF6F8FE),
+              backgroundColor: Colors.tealAccent,
               // appBar: AppBar(
               //   backgroundColor: kWarnaBackgroundApp,
               //   title: Text('Koperasi Undiksha'),
