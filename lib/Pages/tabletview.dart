@@ -4,6 +4,7 @@ import 'package:tugas_pemmob_lanjut1/material/kMaterial.dart';
 import 'package:tugas_pemmob_lanjut1/material/tombolDalam.dart';
 import 'package:tugas_pemmob_lanjut1/model/list_users_model.dart';
 import 'package:tugas_pemmob_lanjut1/services/list_user_service.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TabletView extends StatefulWidget {
   TabletView({Key? key, required this.user}) : super(key: key);
@@ -25,6 +26,24 @@ class _TabletViewState extends State<TabletView> {
   TextEditingController jumlahSetoranController = TextEditingController();
   TextEditingController jumlahTransferController = TextEditingController();
   TextEditingController nomorRekeningController = TextEditingController();
+
+  _sendingTel() async {
+    var url = Uri.parse("tel:081936992847");
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _sendingSMS() async {
+    var url = Uri.parse("sms://081936992847");
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -305,10 +324,31 @@ class _TabletViewState extends State<TabletView> {
                                               ),
                                             ),
                                             Container(
-                                              child: Icon(
-                                                Icons.call,
-                                                size: 80,
-                                                color: Colors.deepPurpleAccent,
+                                              child: Row(
+                                                // crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  IconButton(
+                                                    onPressed: _sendingTel,
+                                                    icon: Icon(
+                                                      Icons.phone,
+                                                      size: 50,
+                                                      color: Colors
+                                                          .lightBlueAccent,
+                                                    ),
+                                                  ),
+                                                  IconButton(
+                                                    onPressed: _sendingSMS,
+                                                    icon: Icon(
+                                                      Icons.mail,
+                                                      size: 50,
+                                                      color: Colors
+                                                          .lightBlueAccent,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 30,
+                                                  )
+                                                ],
                                               ),
                                             ),
                                           ],

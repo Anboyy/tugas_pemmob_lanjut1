@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tugas_pemmob_lanjut1/Pages/LoginPage.dart';
 import 'package:tugas_pemmob_lanjut1/Pages/fitur_bank_indonesia/setoran.dart';
 import 'package:tugas_pemmob_lanjut1/Pages/fitur_bank_indonesia/penarikan.dart';
 import 'package:tugas_pemmob_lanjut1/Pages/fitur_bank_indonesia/transfer.dart';
@@ -8,6 +9,7 @@ import 'package:tugas_pemmob_lanjut1/material/tombolDalam.dart';
 import 'package:tugas_pemmob_lanjut1/material/tombolKategori.dart';
 import 'package:tugas_pemmob_lanjut1/model/list_users_model.dart';
 import 'package:tugas_pemmob_lanjut1/services/list_user_service.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MobileView extends StatefulWidget {
   final ListUsersModel user;
@@ -21,6 +23,36 @@ class MobileView extends StatefulWidget {
 class _MobileViewState extends State<MobileView> {
   late int saldo = int.parse(widget.user.saldo.toString());
   late String namaUser = widget.user.username.toString();
+
+  Future<dynamic> getPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    var data = prefs.getString('username');
+    print(data);
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text("Recent User : " + data.toString()),
+      ),
+    );
+  }
+
+  _sendingTel() async {
+    var url = Uri.parse("tel:081936992847");
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _sendingSMS() async {
+    var url = Uri.parse("sms://081936992847");
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,22 +90,32 @@ class _MobileViewState extends State<MobileView> {
                             ),
                             Spacer(),
                             IconButton(
-                                onPressed: () {}, icon: Icon(Icons.logout)),
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginPage()),
+                                  );
+                                },
+                                icon: Icon(Icons.logout)),
                             Container(
                               height: 50,
                               width: 50,
-                              child: CircleAvatar(
-                                backgroundColor: Colors.green,
-                                // radius: 115,
+                              child: InkWell(
                                 child: CircleAvatar(
-                                  backgroundColor: Colors.greenAccent[100],
-                                  radius: 110,
+                                  backgroundColor: Colors.green,
+                                  // radius: 115,
                                   child: CircleAvatar(
-                                    backgroundImage: AssetImage(
-                                        'Assets/images/logo.png'), //NetworkImage
-                                    // radius: 100,
+                                    backgroundColor: Colors.greenAccent[100],
+                                    radius: 110,
+                                    child: CircleAvatar(
+                                      backgroundImage:
+                                          AssetImage('Assets/images/logo.png'),
+                                      // radius: 100,
+                                    ),
                                   ),
                                 ),
+                                onTap: getPrefs,
                               ),
                             ),
                           ],
@@ -198,23 +240,6 @@ class _MobileViewState extends State<MobileView> {
                 ),
               ],
             ),
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: Material(
-            //     ,
-            //     borderRadius: BorderRadius.all(
-            //       Radius.circular(10),
-            //     ),
-            //     child: Container(
-            //       padding: EdgeInsets.all(10),
-            //       decoration: BoxDecoration(
-            //         color: Colors.white,
-            //         borderRadius: BorderRadius.circular(10),
-            //       ),
-            //       // child:
-            //     ),
-            //   ),
-            // ),
             SizedBox(
               height: 20,
             ),
@@ -245,10 +270,29 @@ class _MobileViewState extends State<MobileView> {
                     ),
                   ),
                   Container(
-                    child: Icon(
-                      Icons.call,
-                      size: 80,
-                      color: Colors.deepPurpleAccent,
+                    child: Row(
+                      // crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        IconButton(
+                          onPressed: _sendingTel,
+                          icon: Icon(
+                            Icons.phone,
+                            size: 50,
+                            color: Colors.lightBlueAccent,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: _sendingSMS,
+                          icon: Icon(
+                            Icons.mail,
+                            size: 50,
+                            color: Colors.lightBlueAccent,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 30,
+                        )
+                      ],
                     ),
                   ),
                 ],

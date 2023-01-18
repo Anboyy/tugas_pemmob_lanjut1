@@ -43,6 +43,7 @@ class _qrcodeState extends State<qrcode> {
         child: Center(
           child: Column(
             children: [
+              Image.asset('Assets/images/bc.jpg'),
               TextButton(
                 child: const Text('Scan QR'),
                 onPressed: () => _scan(),

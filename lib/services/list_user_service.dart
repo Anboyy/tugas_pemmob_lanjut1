@@ -31,9 +31,11 @@ class ListUsersService {
 
   postLogin(String username, String password) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isLoged', true);
-    await prefs.setString('username', username);
-    await prefs.setString('password', password);
+    if (await prefs.getString('username') == null) {
+      await prefs.setBool('isLoged', true);
+      await prefs.setString('username', username);
+      await prefs.setString('password', password);
+    }
     String url = 'http://apikoperasi.rey1024.com';
     final Response response;
     FormData formData =

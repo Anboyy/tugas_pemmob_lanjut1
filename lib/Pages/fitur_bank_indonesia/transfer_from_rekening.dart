@@ -12,6 +12,7 @@ class TranferRekening extends StatefulWidget {
 }
 
 class _TranferRekeningState extends State<TranferRekening> {
+  late String biayaTf = '1093';
   bool penarikanLoading = false;
   final TextEditingController jumlahTransfer = TextEditingController();
   final TextEditingController nomorRekening = TextEditingController();
@@ -23,11 +24,11 @@ class _TranferRekeningState extends State<TranferRekening> {
       builder: (_) => AlertDialog(
         title: Text('Are You Sure Transfer to $nomor_rekening'),
         actions: [
-          (penarikanLoading)
-              ? CircularProgressIndicator()
-              : ElevatedButton(
-                  onPressed: () async {
-                    setState(() {
+              (penarikanLoading)
+                  ? CircularProgressIndicator()
+                  : ElevatedButton(
+                onPressed: () async {
+                  setState(() {
                       penarikanLoading = true;
                     });
                     // await tarikSaldo(user_id, jumlah_setoran);
@@ -35,12 +36,13 @@ class _TranferRekeningState extends State<TranferRekening> {
                         int.parse(widget.user.user_id.toString()),
                         jumlah_transfer,
                         nomor_rekening);
+                    await tarikSaldo(widget.user.user_id, biayaTf);
                     Navigator.pop(context);
                   },
-                  child: Text('Yes'),
-                ),
-        ],
-      ),
+                child: Text('Yes'),
+              ),
+            ],
+          ),
     );
   }
 
@@ -93,6 +95,14 @@ class _TranferRekeningState extends State<TranferRekening> {
         user_id, double.parse(jumlah_setoran), nomor_rekening);
     setState(() {
       penarikanLoading = false;
+    });
+  }
+
+  tarikSaldo(String? user_id, String biayaTf) async {
+    ListUsersService _service = ListUsersService();
+    await _service.tarikSaldo(int.parse(user_id!), double.parse(biayaTf));
+    setState(() {
+      // penarikanLoading = false;
     });
   }
 }
