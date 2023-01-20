@@ -31,12 +31,11 @@ class _TranferRekeningState extends State<TranferRekening> {
                   setState(() {
                       penarikanLoading = true;
                     });
-                    // await tarikSaldo(user_id, jumlah_setoran);
                     await tranferSaldo(
                         int.parse(widget.user.user_id.toString()),
                         jumlah_transfer,
                         nomor_rekening);
-                    await tarikSaldo(widget.user.user_id, biayaTf);
+                    // tarikSaldo(widget.user.user_id, biayaTf);
                     Navigator.pop(context);
                   },
                 child: Text('Yes'),
